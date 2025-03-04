@@ -4,14 +4,13 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Image from "next/image";
 import styles from "./Header.module.css";
-import logoSquare from "../../../assets/logo-square.jpg";
 
 export function Header() {
   return (
     <div className={styles.header}>
       <div className={styles.headerRow} />
       <div className={styles.logoContainer}>
-        <Image src={logoSquare} alt="Logo" width={40} height={40} />
+        <Image src="/logo-square.jpg" alt="Logo" width={40} height={40} />
         <span className={styles.title}>Amastay</span>
       </div>
       <div className={styles.phoneNumber}>

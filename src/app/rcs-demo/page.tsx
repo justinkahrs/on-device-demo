@@ -4,12 +4,12 @@ import {
   Message,
   type RCSMessageEvent,
   TypingIndicator,
-} from "./components/Message/Message";
+} from "../../components/Message/Message";
 import styles from "./styles.module.css";
 import { messages } from "./messages";
-import { PhoneContainer } from "./components/PhoneContainer/PhoneContainer";
-import { Header } from "./components/Header/Header";
-import { ChatWindow } from "./components/ChatWindow/ChatWindow";
+import { PhoneContainer } from "../../components/PhoneContainer/PhoneContainer";
+import { Header } from "../../components/Header/Header";
+import { ChatWindow } from "../../components/ChatWindow/ChatWindow";
 
 export default function RcsDemo() {
   const [displayedMessages, setDisplayedMessages] = useState<RCSMessageEvent[]>(

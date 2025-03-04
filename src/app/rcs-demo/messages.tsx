@@ -1,5 +1,5 @@
 import React from "react";
-import type { RCSMessageEvent } from "./components/Message/Message";
+import type { RCSMessageEvent } from "../../components/Message/Message";
 export const QuickReplies = ({ options }: { options: string[] }) => {
   return (
     <div style={{ display: "flex", gap: "8px" }}>
