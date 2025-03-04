@@ -92,7 +92,7 @@ export default function RcsDemo() {
   };
 
   return (
-    <>
+    <div className={styles.appWrap}>
       <PhoneContainer>
         <Header />
         <ChatWindow
@@ -126,6 +126,6 @@ export default function RcsDemo() {
           Restart Demo
         </button>
       )}
-    </>
+    </div>
   );
 }

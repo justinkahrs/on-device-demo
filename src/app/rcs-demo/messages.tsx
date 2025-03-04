@@ -182,15 +182,13 @@ export const IntroMessages: RCSMessageEvent[] = [
   },
 ];
 export const RecommendationMessages: RCSMessageEvent[] = [
-  { from: "guest", text: "What’s good to do nearby?" },
+  { from: "guest", text: "What’s fun to do around here?" },
   {
     awaitUser: true,
     from: "bot",
     component: (
       <>
-        <span>
-          There’s plenty to explore! Here are some top recommendations:
-        </span>
+        <span>Here are some approved recommendations from your host:</span>
         <QuickReplies
           options={[
             "🗾 Directions to a local park",
@@ -207,7 +205,7 @@ export const RecommendationMessages: RCSMessageEvent[] = [
     from: "bot",
     component: (
       <>
-        Great choice! Here’s their availability for Saturday night:
+        Here’s their availability for Saturday night:
         <QuickReplies options={["6:30 PM", "7:00 PM", "8:00 PM"]} />
       </>
     ),
@@ -220,7 +218,7 @@ export const RecommendationMessages: RCSMessageEvent[] = [
         <span>
           Confirmed! Your dinner reservation is set for Saturday at 7:00 PM.
         </span>
-        <RichLink label="View Reservation" />
+        <RichLink label="View Reservation" url="https://www.google.com" />
       </>
     ),
   },

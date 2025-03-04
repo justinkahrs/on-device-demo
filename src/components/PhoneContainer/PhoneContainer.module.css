@@ -1,14 +1,17 @@
 .phoneContainer {
   /* Simulate an iPhone container */
-  width: 375px;
-  height: 812px;
+  width: 100%;
+  max-width: min(375px, 95vw);
+  height: 100%;
+  aspect-ratio: 375 / 812;
+  max-height: min(812px, 95vh);
   background: #fefefe;
   border: 3px solid #000;
   border-radius: 25px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16);
   display: flex;
   flex-direction: column;
-  margin: 40px auto;
+  margin: .5rem;
   position: relative;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
