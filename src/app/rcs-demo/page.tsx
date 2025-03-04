@@ -65,8 +65,12 @@ export default function RcsDemo() {
           chatWindowRef={chatWindowRef as React.RefObject<HTMLDivElement>}
         >
           {displayedMessages.map((msg, i) => (
-            <Message from={msg.from} key={`${msg.from}-${i}`}>
-              {msg.component ? msg.component : msg.text}
+            <Message
+              className={msg.text ? "txt" : "component"}
+              from={msg.from}
+              key={`${msg.from}-${i}`}
+            >
+              {msg.text ? msg.text : msg.component}
             </Message>
           ))}
 

@@ -22,6 +22,15 @@
   position: relative;
 }
 
+.bubble.txt {
+  max-width: 70%;
+}
+
+.bubble.component {
+  max-width: 100%;
+}
+
+
 .myMessage .bubble {
   background: #34b375;
   color: #fff;

@@ -98,6 +98,7 @@ export const messages: RCSMessageEvent[] = [
         <strong>Check-out:</strong>
         <br />
         Monday, Feb 19, 11:00AM
+        <br />
         <strong>Address:</strong>
         <br />
         123 Oceanview Drive, Monterey, CA
@@ -117,12 +118,6 @@ export const messages: RCSMessageEvent[] = [
           options={["View full property guide", "Get directions", "See Photos"]}
         />
       </>
-    ),
-  },
-  {
-    from: "guest",
-    component: (
-      <PaymentConfirmation message="Guest taps Apple Pay and confirms payment" />
     ),
   },
   // { from: "bot", text: "Step 3: Guest Requests Directions" },

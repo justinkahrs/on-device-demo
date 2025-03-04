@@ -1,6 +1,7 @@
 "use client";
 import type React from "react";
 import styles from "./Message.module.css";
+import classNames from "classnames";
 
 export interface RCSMessageEvent {
   from: "guest" | "bot" | "owner";
@@ -10,13 +11,20 @@ export interface RCSMessageEvent {
 interface MessageProps {
   from: "guest" | "bot" | "owner";
   children: React.ReactNode;
+  className?: string;
 }
 
-export function Message({ from, children }: MessageProps) {
+export function Message({ className = "txt", from, children }: MessageProps) {
   const isGuest = from === "guest";
   return (
     <div className={isGuest ? styles.myMessage : styles.theirMessage}>
-      <div className={`${styles.bubble} ${styles.messageAppear}`}>
+      <div
+        className={classNames(
+          styles.bubble,
+          styles[`bubble.${className}`],
+          styles.messageAppear
+        )}
+      >
         {children}
       </div>
     </div>
