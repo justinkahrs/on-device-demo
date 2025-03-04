@@ -114,7 +114,7 @@ export const IntroMessages: RCSMessageEvent[] = [
     component: (
       <>
         <span>Here’s the fastest route to The Lighthouse. </span>
-        <RichLink label="View in Apple Maps" />
+        <RichLink label="View in Apple Maps" url="maps://?daddr=Cupertino,CA" />
       </>
     ),
   },
@@ -231,6 +231,10 @@ export const ContactOwnerMessages: RCSMessageEvent[] = [
   {
     from: "bot",
     text: "Your message has been sent to the owner. You’ll receive a response here shortly.",
+  },
+  {
+    from: "bot",
+    text: "From Chad (host):",
   },
   {
     from: "owner",
