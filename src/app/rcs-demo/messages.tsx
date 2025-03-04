@@ -227,10 +227,10 @@ export const messages = [
     from: "bot",
     text: "Happy to help! Enjoy your stay at The Lighthouse. Let us know if you need anything else.",
   },
-  {
-    from: "bot",
-    // text: "Step 9: Guest Requests Late Checkout (Apple Pay Integration)",
-  },
+  // {
+  //   from: "bot",
+  //   text: "Step 9: Guest Requests Late Checkout (Apple Pay Integration)",
+  // },
   { from: "guest", text: "Can I check out later on Monday?" },
   {
     from: "bot",
