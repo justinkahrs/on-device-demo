@@ -1,12 +1,13 @@
 import React from "react";
-
+import type { RCSMessageEvent } from "./components/Message";
 export const QuickReplies = ({ options }: { options: string[] }) => {
   return (
     <div style={{ display: "flex", gap: "8px" }}>
-      {options.map((option, index) => (
+      {options.map((option) => (
         <button
-          key={index}
+          key={option}
           style={{ padding: "8px 12px", borderRadius: "4px" }}
+          type="button"
         >
           {option}
         </button>
@@ -63,7 +64,7 @@ export const PaymentConfirmation = ({ message }: { message: string }) => {
   return <div style={{ padding: "8px", fontStyle: "italic" }}>{message}</div>;
 };
 
-export const messages = [
+export const messages: RCSMessageEvent[] = [
   // { from: "bot", text: "Step 2: Guest Arrives in Apple Messages for Business" },
   {
     from: "guest",
@@ -81,7 +82,7 @@ export const messages = [
   },
   {
     from: "bot",
-    text: (
+    component: (
       <>
         <strong>Check-in:</strong>
         <br />
@@ -102,7 +103,15 @@ export const messages = [
   },
   {
     from: "bot",
-    text: "Would you like to: View full property guide • Get directions • See photos",
+    component: (
+      <>
+        Would you like to:
+        <QuickReplies
+          options={["View full property guide", "Get directions", "See Photos"]}
+        />
+        View full property guide • Get directions • See photos
+      </>
+    ),
   },
   {
     from: "guest",

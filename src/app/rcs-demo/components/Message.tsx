@@ -2,6 +2,11 @@
 import type React from "react";
 import styles from "./Message.module.css";
 
+export interface RCSMessageEvent {
+  from: "guest" | "bot" | "owner";
+  text?: string;
+  component?: React.ReactNode;
+}
 interface MessageProps {
   from: "guest" | "bot" | "owner";
   children: React.ReactNode;
