@@ -64,7 +64,7 @@ export default function RcsDemo() {
     if (chatWindowRef.current) {
       chatWindowRef.current.scrollTo({
         top: chatWindowRef.current.scrollHeight,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }
   }, [displayedMessages, typingFrom]);
@@ -78,7 +78,7 @@ export default function RcsDemo() {
       </div>
       <div className={styles.powerButton} />
       <div className={styles.header}>
-        <div className={styles.headerRow}></div>
+        <div className={styles.headerRow} />
         <div className={styles.logoContainer}>
           <Image src={logoSquare} alt="Logo" width={40} height={40} />
           <span className={styles.title}>Amastay</span>
