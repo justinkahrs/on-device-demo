@@ -1,0 +1,8 @@
+.chatWindow {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  background: #e7e7e7;
+  position: relative;
+  height: calc(812px - 160px); /* Subtracting header and any extra padding */
+}

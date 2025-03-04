@@ -57,10 +57,23 @@
   padding: 10px;
 }
 
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 26px;
+}
+
 .phoneNumber {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   text-align: center;
   margin-top: 8px;
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .backButton {
@@ -142,10 +155,18 @@
 }
 
 .messageAppear {
-  animation: messageAppearScale 0.35s ease-out;
+  animation: messageAppear 0.2s ease-out forwards;
 }
 
-@keyframes messageAppearScale {
+.theirMessage .messageAppear {
+  transform-origin: top left;
+}
+
+.myMessage .messageAppear {
+  transform-origin: top right;
+}
+
+@keyframes messageAppear {
   from {
     transform: scale(0.86);
   }
@@ -156,10 +177,11 @@
 }
 
 .typingDots span {
+  color: inherit;
   display: inline-block;
   margin: 0 2px;
   border-radius: 50%;
-  animation: typing 1.2s infinite steps(1, end);
+  animation: typing .8s infinite steps(1, end);
 }
 
 .typingDots span:nth-child(2) {
@@ -172,17 +194,14 @@
 
 @keyframes typing {
   0% {
-    opacity: 0.25;
     transform: translateY(0);
   }
 
   20% {
-    opacity: 1;
     transform: translateY(-6px);
   }
 
   40% {
-    opacity: 0.25;
     transform: translateY(0);
   }
 

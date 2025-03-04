@@ -1,0 +1,38 @@
+.phoneContainer {
+  /* Example styles - adjust as needed */
+  width: 375px;
+  height: 812px;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: #f6f6f6;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.volumeButtons {
+  position: absolute;
+  left: -8px;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.volumeButton {
+  width: 6px;
+  height: 30px;
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.powerButton {
+  position: absolute;
+  right: -8px;
+  top: 120px;
+  width: 6px;
+  height: 40px;
+  background: #ccc;
+  border-radius: 3px;
+}

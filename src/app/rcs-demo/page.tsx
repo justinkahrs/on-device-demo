@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import styles from "./styles.module.css";
 import Image from "next/image";
 import logoSquare from "../../assets/logo-square.jpg";
@@ -71,17 +73,18 @@ export default function RcsDemo() {
         <div className={styles.volumeButton} />
         <div className={styles.volumeButton} />
       </div>
-      <div className={styles.powerButton}></div>
+      <div className={styles.powerButton} />
       <div className={styles.header}>
-        <div className={styles.headerRow}>
-          <div className={styles.title}>Amastay</div>
-        </div>
+        <div className={styles.headerRow}></div>
         <div className={styles.logoContainer}>
-          <div className={styles.backButton}>&lt;</div>
-
           <Image src={logoSquare} alt="Logo" width={40} height={40} />
+          <span className={styles.title}>Amastay</span>
         </div>
-        <div className={styles.phoneNumber}>1-(800)-798-2070</div>
+        <div className={styles.phoneNumber}>
+          <div>Amastay </div>
+          <VerifiedIcon fontSize="small" style={{ height: "12px" }} />
+          <ChevronRightIcon style={{ height: "16px", marginLeft: "-10px" }} />
+        </div>
       </div>
 
       <div ref={chatWindowRef} className={styles.chatWindow}>
