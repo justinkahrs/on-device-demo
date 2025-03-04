@@ -62,7 +62,10 @@ export default function RcsDemo() {
   // Always scroll to the bottom when a new message or typing indicator appears
   useEffect(() => {
     if (chatWindowRef.current) {
-      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+      chatWindowRef.current.scrollTo({
+        top: chatWindowRef.current.scrollHeight,
+        behavior: "smooth"
+      });
     }
   }, [displayedMessages, typingFrom]);
 
