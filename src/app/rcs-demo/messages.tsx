@@ -1,3 +1,68 @@
+import React from "react";
+
+export const QuickReplies = ({ options }: { options: string[] }) => {
+  return (
+    <div style={{ display: "flex", gap: "8px" }}>
+      {options.map((option, index) => (
+        <button
+          key={index}
+          style={{ padding: "8px 12px", borderRadius: "4px" }}
+        >
+          {option}
+        </button>
+      ))}
+    </div>
+  );
+};
+export const GuestName = () => <span>Justin</span>;
+
+export const ListPicker = ({ prompt }: { prompt: string }) => {
+  return (
+    <div
+      style={{ border: "1px dashed gray", padding: "8px", borderRadius: "4px" }}
+    >
+      {prompt}
+    </div>
+  );
+};
+
+export const RichLink = ({ label }: { label: string }) => {
+  return (
+    <a href="#" style={{ color: "blue", textDecoration: "underline" }}>
+      {label}
+    </a>
+  );
+};
+
+export const ApplePayButton = ({ label }: { label: string }) => {
+  return (
+    <button
+      style={{
+        background: "black",
+        color: "white",
+        padding: "8px 16px",
+        borderRadius: "4px",
+      }}
+    >
+      {label}
+    </button>
+  );
+};
+
+export const FormPlaceholder = () => {
+  return (
+    <div
+      style={{ border: "1px solid #ccc", padding: "8px", borderRadius: "4px" }}
+    >
+      [Form Component]
+    </div>
+  );
+};
+
+export const PaymentConfirmation = ({ message }: { message: string }) => {
+  return <div style={{ padding: "8px", fontStyle: "italic" }}>{message}</div>;
+};
+
 export const messages = [
   // { from: "bot", text: "Step 2: Guest Arrives in Apple Messages for Business" },
   {
@@ -6,11 +71,30 @@ export const messages = [
   },
   {
     from: "bot",
-    text: "Welcome to The Lighthouse! We’re excited to host you, [Guest Name]. Here’s a quick summary of your stay:",
+    component: (
+      <>
+        <span>Welcome to The Lighthouse! We’re excited to host you, </span>
+        <GuestName />
+        <span>. Here’s a quick summary of your stay:</span>
+      </>
+    ),
   },
   {
     from: "bot",
-    text: "Check-in: Friday, Feb 16, 3:00 PM • Check-out: Monday, Feb 19, 11:00 AM • Address: 123 Oceanview Drive, Monterey, CA",
+    text: (
+      <>
+        <strong>Check-in:</strong>
+        <br />
+        Friday, Feb 16, 3:00PM
+        <br />
+        <strong>Check-out:</strong>
+        <br />
+        Monday, Feb 19, 11:00AM
+        <strong>Address:</strong>
+        <br />
+        123 Oceanview Drive, Monterey, CA
+      </>
+    ),
   },
   {
     from: "bot",
@@ -20,12 +104,22 @@ export const messages = [
     from: "bot",
     text: "Would you like to: View full property guide • Get directions • See photos",
   },
-  { from: "guest", text: "[List-Picker: Guest selects an option]" },
+  {
+    from: "guest",
+    component: (
+      <PaymentConfirmation message="Guest taps Apple Pay and confirms payment" />
+    ),
+  },
   // { from: "bot", text: "Step 3: Guest Requests Directions" },
   { from: "guest", text: "Get directions" },
   {
     from: "bot",
-    text: "Here’s the fastest route to The Lighthouse. [Rich-Link: View in Apple Maps]",
+    component: (
+      <>
+        <span>Here’s the fastest route to The Lighthouse. </span>
+        <RichLink label="View in Apple Maps" />
+      </>
+    ),
   },
   // { from: "bot", text: "Step 4: Guest Wants to See House Rules" },
   { from: "guest", text: "Can you show me the house rules?" },
@@ -35,12 +129,22 @@ export const messages = [
   },
   {
     from: "bot",
-    text: "Would you like a full list? [Quick Replies: Yes | No]",
+    component: (
+      <>
+        <span>Would you like a full list? </span>
+        <QuickReplies options={["Yes", "No"]} />
+      </>
+    ),
   },
   { from: "guest", text: "Yes" },
   {
     from: "bot",
-    text: "Here’s the full list of house rules: [Rich-Link: View Full House Rules]",
+    component: (
+      <>
+        <span>Here’s the full list of house rules: </span>
+        <RichLink label="View Full House Rules" />
+      </>
+    ),
   },
   // { from: "bot", text: "Step 5: Guest Requests Local Recommendations" },
   { from: "guest", text: "What’s good to do nearby?" },
@@ -64,18 +168,40 @@ export const messages = [
   { from: "guest", text: "7:00 PM" },
   {
     from: "bot",
-    text: "Confirmed! Your dinner reservation is set for Saturday at 7:00 PM. [Rich-Link: View Reservation]",
+    component: (
+      <>
+        <span>
+          Confirmed! Your dinner reservation is set for Saturday at 7:00 PM.{" "}
+        </span>
+        <RichLink label="View Reservation" />
+      </>
+    ),
   },
   // { from: "bot", text: "Step 7: Guest Needs to Contact the Owner" },
   { from: "guest", text: "I have a question about the Wi-Fi." },
   {
     from: "bot",
-    text: "Wi-Fi is available! Network: LighthouseGuest, Password: Sunset123. Still need help? [Quick Reply: Contact Owner]",
+    component: (
+      <>
+        <span>
+          Wi-Fi is available! Network: LighthouseGuest, Password: Sunset123.
+          Still need help?{" "}
+        </span>
+        <QuickReplies options={["Contact Owner"]} />
+      </>
+    ),
   },
   { from: "guest", text: "Contact Owner" },
   {
     from: "bot",
-    text: "Please describe your question. The owner will respond shortly. [Form appears]",
+    component: (
+      <>
+        <span>
+          Please describe your question. The owner will respond shortly.{" "}
+        </span>
+        <FormPlaceholder />
+      </>
+    ),
   },
   { from: "guest", text: "The Wi-Fi seems slow, any troubleshooting tips?" },
   {
@@ -85,7 +211,16 @@ export const messages = [
   // { from: "bot", text: "Step 8: Owner Responds" },
   {
     from: "owner",
-    text: "Hi [Guest Name], thanks for reaching out! The Wi-Fi may slow if multiple devices stream video. Try restarting the router under the TV.",
+    component: (
+      <>
+        <span>Hi </span>
+        <GuestName />
+        <span>
+          , thanks for reaching out! The Wi-Fi may slow if multiple devices
+          stream video. Try restarting the router under the TV.
+        </span>
+      </>
+    ),
   },
   { from: "guest", text: "Thanks so much!" },
   {
@@ -99,12 +234,27 @@ export const messages = [
   { from: "guest", text: "Can I check out later on Monday?" },
   {
     from: "bot",
-    text: "You can extend your stay until 1:00 PM for a $30 late checkout fee. Would you like to confirm? [Yes | No]",
+    component: (
+      <>
+        <span>
+          You can extend your stay until 1:00 PM for a $30 late checkout fee.
+          Would you like to confirm?{" "}
+        </span>
+        <QuickReplies options={["Yes", "No"]} />
+      </>
+    ),
   },
   { from: "guest", text: "Yes" },
   {
     from: "bot",
-    text: "Late Checkout Confirmed! Payment of $30 is required to finalize. [Apple Pay Button: Pay $30 Now]",
+    component: (
+      <>
+        <span>
+          Late Checkout Confirmed! Payment of $30 is required to finalize.{" "}
+        </span>
+        <ApplePayButton label="Pay $30 Now" />
+      </>
+    ),
   },
   { from: "guest", text: "[Guest taps Apple Pay and confirms payment]" },
   {

@@ -11,7 +11,7 @@ export default function RcsDemo() {
 
   // Track the subset of messages that have been shown
   const [displayedMessages, setDisplayedMessages] = useState<
-    { from: string; text: string }[]
+    { from: string; text?: string; component?: React.ReactNode }[]
   >([]);
   const chatWindowRef = useRef<HTMLDivElement>(null);
 
@@ -40,7 +40,7 @@ export default function RcsDemo() {
   return (
     <div className={styles.phoneContainer}>
       <div className={styles.header}>
-        <span>Happy Skies Airlines</span>
+        <span>Amastay</span>
       </div>
       <div ref={chatWindowRef} className={styles.chatWindow}>
         {displayedMessages
@@ -53,7 +53,7 @@ export default function RcsDemo() {
               }
             >
               <div className={`${styles.bubble} ${styles.messageAppear}`}>
-                {msg.text}
+                {msg.component ? msg.component : msg.text}
               </div>
             </div>
           ))}
