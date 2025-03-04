@@ -1,5 +1,5 @@
 import React from "react";
-import type { RCSMessageEvent } from "../../components/Message/Message";
+import type { RCSMessageEvent } from "../components/Message/Message";
 export const QuickReplies = ({
   options,
   onSelect,

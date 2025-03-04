@@ -6,7 +6,7 @@ import {
   TypingIndicator,
 } from "../../components/Message/Message";
 import styles from "./styles.module.css";
-import { messages, QuickReplies } from "./messages";
+import { messages, QuickReplies } from "../messages";
 import { PhoneContainer } from "../../components/PhoneContainer/PhoneContainer";
 import { Header } from "../../components/Header/Header";
 import { ChatWindow } from "../../components/ChatWindow/ChatWindow";

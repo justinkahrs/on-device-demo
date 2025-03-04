@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RCS Demo",
+  title: "Amastay RCS Demo",
   description: "React app to simulate RCS interactions",
 };
 
