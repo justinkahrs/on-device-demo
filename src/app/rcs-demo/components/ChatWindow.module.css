@@ -1,8 +1,22 @@
 .chatWindow {
   flex: 1;
   padding: 16px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
-  background: #e7e7e7;
-  position: relative;
-  height: calc(812px - 160px); /* Subtracting header and any extra padding */
+  background: #ffffff;
+}
+
+/* Always hide scrollbars for chatWindow */
+.chatWindow {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.chatWindow::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
 }

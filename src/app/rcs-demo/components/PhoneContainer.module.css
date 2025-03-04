@@ -1,38 +1,47 @@
 .phoneContainer {
-  /* Example styles - adjust as needed */
+  /* Simulate an iPhone container */
   width: 375px;
   height: 812px;
-  border: 1px solid #ccc;
-  border-radius: 40px;
-  margin: 0 auto;
+  background: #fefefe;
+  border: 3px solid #000;
+  border-radius: 25px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16);
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto;
   position: relative;
-  overflow: hidden;
-  background: #f6f6f6;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .volumeButtons {
   position: absolute;
-  left: -8px;
-  top: 100px;
+  top: 26%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 16px;
 }
 
 .volumeButton {
-  width: 6px;
+  width: 4px;
+  height: 45px;
+  background-color: #000;
+  border-radius: 2px;
+  margin-left: -6px;
+}
+
+.volumeButton:first-child {
   height: 30px;
-  background: #ccc;
-  border-radius: 3px;
 }
 
 .powerButton {
   position: absolute;
-  right: -8px;
-  top: 120px;
+  right: 0;
+  top: 30%;
+  transform: translateY(-50%);
   width: 6px;
-  height: 40px;
-  background: #ccc;
+  height: 70px;
+  background-color: #000;
   border-radius: 3px;
+  margin-right: -6px;
 }

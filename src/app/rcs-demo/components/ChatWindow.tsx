@@ -4,7 +4,7 @@ import styles from "./ChatWindow.module.css";
 
 interface ChatWindowProps {
   children: React.ReactNode;
-  chatWindowRef: React.RefObject<HTMLDivElement>;
+  chatWindowRef: React.RefObject<HTMLDivElement> | null;
 }
 
 export function ChatWindow({ children, chatWindowRef }: ChatWindowProps) {

@@ -27,9 +27,15 @@ export const ListPicker = ({ prompt }: { prompt: string }) => {
   );
 };
 
-export const RichLink = ({ label }: { label: string }) => {
+export const RichLink = ({
+  label,
+  url = "https://www.apple.com",
+}: {
+  label: string;
+  url?: string;
+}) => {
   return (
-    <a href="#" style={{ color: "blue", textDecoration: "underline" }}>
+    <a href={url} style={{ color: "blue", textDecoration: "underline" }}>
       {label}
     </a>
   );
@@ -44,6 +50,7 @@ export const ApplePayButton = ({ label }: { label: string }) => {
         padding: "8px 16px",
         borderRadius: "4px",
       }}
+      type="button"
     >
       {label}
     </button>
@@ -109,7 +116,6 @@ export const messages: RCSMessageEvent[] = [
         <QuickReplies
           options={["View full property guide", "Get directions", "See Photos"]}
         />
-        View full property guide • Get directions • See photos
       </>
     ),
   },
@@ -134,7 +140,21 @@ export const messages: RCSMessageEvent[] = [
   { from: "guest", text: "Can you show me the house rules?" },
   {
     from: "bot",
-    text: "Of course! Here are the key house rules: No smoking indoors, Quiet hours: 10 PM – 7 AM, No pets, Max occupancy: 4 guests",
+    component: (
+      <>
+        Of course!
+        <br />
+        Here are the key house rules:
+        <br />
+        No smoking indoors
+        <br />
+        Quiet hours: 10 PM – 7 AM
+        <br />
+        No pets
+        <br />
+        Max occupancy: 4 guests
+      </>
+    ),
   },
   {
     from: "bot",
