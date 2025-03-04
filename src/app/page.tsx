@@ -10,6 +10,10 @@ import { messages, QuickReplies } from "./messages";
 import { PhoneContainer } from "../components/PhoneContainer/PhoneContainer";
 import { Header } from "../components/Header/Header";
 import { ChatWindow } from "../components/ChatWindow/ChatWindow";
+import UndoIcon from "@mui/icons-material/Undo";
+
+/* adjust speed to liking */
+const MESSAGE_DELAY_TIME = 1500;
 
 export default function RcsDemo() {
   const [displayedMessages, setDisplayedMessages] = useState<RCSMessageEvent[]>(
@@ -37,7 +41,7 @@ export default function RcsDemo() {
           setShowTyping(true);
         }
       }
-    }, 1500);
+    }, MESSAGE_DELAY_TIME);
 
     return () => clearTimeout(timerId);
   }, [messageIndex, showTyping]);
@@ -123,6 +127,7 @@ export default function RcsDemo() {
           className={styles.restartButton}
           type="button"
         >
+          <UndoIcon style={{ marginRight: "8px" }} />
           Restart Demo
         </button>
       )}

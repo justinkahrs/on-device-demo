@@ -1,5 +1,6 @@
 import React from "react";
 import type { RCSMessageEvent } from "../components/Message/Message";
+
 export const QuickReplies = ({
   options,
   onSelect,
@@ -23,16 +24,6 @@ export const QuickReplies = ({
   );
 };
 export const GuestName = () => <span>Justin</span>;
-
-export const ListPicker = ({ prompt }: { prompt: string }) => {
-  return (
-    <div
-      style={{ border: "1px dashed gray", padding: "8px", borderRadius: "4px" }}
-    >
-      {prompt}
-    </div>
-  );
-};
 
 export const RichLink = ({
   label,
@@ -62,20 +53,6 @@ export const ApplePayButton = ({ label }: { label: string }) => {
       {label}
     </button>
   );
-};
-
-export const FormPlaceholder = () => {
-  return (
-    <div
-      style={{ border: "1px solid #ccc", padding: "8px", borderRadius: "4px" }}
-    >
-      [Form Component]
-    </div>
-  );
-};
-
-export const PaymentConfirmation = ({ message }: { message: string }) => {
-  return <div style={{ padding: "8px", fontStyle: "italic" }}>{message}</div>;
 };
 
 export const IntroMessages: RCSMessageEvent[] = [
@@ -202,11 +179,12 @@ export const RecommendationMessages: RCSMessageEvent[] = [
   { from: "guest", text: "🍽 Reservations at The Seaside Café" },
   { from: "bot", text: "Would you like to book a table?" },
   {
+    awaitUser: true,
     from: "bot",
     component: (
       <>
         Here’s their availability for Saturday night:
-        <QuickReplies options={["6:30 PM", "7:00 PM", "8:00 PM"]} />
+        <QuickReplies options={["🕡 6:30 PM", "🕖 7:00 PM", " 🕗 8:00 PM"]} />
       </>
     ),
   },
@@ -306,6 +284,7 @@ export const LateCheckoutMessages: RCSMessageEvent[] = [
     text: "Payment Received! Late checkout is confirmed for Monday, 1:00 PM.",
   },
 ];
+
 export const messages: RCSMessageEvent[] = [
   ...IntroMessages,
   ...RecommendationMessages,
