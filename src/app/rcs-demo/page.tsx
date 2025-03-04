@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
+import Image from "next/image";
+import logoSquare from "../../assets/logo-square.jpg";
 import { messages } from "./messages";
 
 export default function RcsDemo() {
@@ -64,8 +66,22 @@ export default function RcsDemo() {
 
   return (
     <div className={styles.phoneContainer}>
+      <div className={styles.volumeButtons}>
+        <div className={styles.volumeButton} />
+        <div className={styles.volumeButton} />
+        <div className={styles.volumeButton} />
+      </div>
+      <div className={styles.powerButton}></div>
       <div className={styles.header}>
-        <span>Amastay</span>
+        <div className={styles.headerRow}>
+          <div className={styles.title}>Amastay</div>
+        </div>
+        <div className={styles.logoContainer}>
+          <div className={styles.backButton}>&lt;</div>
+
+          <Image src={logoSquare} alt="Logo" width={40} height={40} />
+        </div>
+        <div className={styles.phoneNumber}>1-(800)-798-2070</div>
       </div>
 
       <div ref={chatWindowRef} className={styles.chatWindow}>
