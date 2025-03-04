@@ -1,12 +1,12 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Message,
   type RCSMessageEvent,
   TypingIndicator,
 } from "../../components/Message/Message";
 import styles from "./styles.module.css";
-import { messages } from "./messages";
+import { messages, QuickReplies } from "./messages";
 import { PhoneContainer } from "../../components/PhoneContainer/PhoneContainer";
 import { Header } from "../../components/Header/Header";
 import { ChatWindow } from "../../components/ChatWindow/ChatWindow";
@@ -32,8 +32,10 @@ export default function RcsDemo() {
       } else {
         setTypingFrom(null);
         setDisplayedMessages((prev) => [...prev, newMessage]);
-        setMessageIndex((i) => i + 1);
-        setShowTyping(true);
+        if (!newMessage.awaitUser) {
+          setMessageIndex((i) => i + 1);
+          setShowTyping(true);
+        }
       }
     }, 1500);
 
@@ -50,6 +52,29 @@ export default function RcsDemo() {
     }
   }, [displayedMessages, typingFrom]);
 
+  function handleQuickReply(option: string) {
+    // Optionally, handle the selected option if needed
+    setMessageIndex((prev) => prev + 1);
+    setShowTyping(true);
+  }
+
+  function addOnSelectToQuickReplies(node: React.ReactNode): React.ReactNode {
+    if (React.isValidElement(node)) {
+      if (node.type === QuickReplies) {
+        return React.cloneElement(node, { onSelect: handleQuickReply });
+      }
+      if (node.props && node.props.children) {
+        return React.cloneElement(node, {
+          children: React.Children.map(
+            node.props.children,
+            addOnSelectToQuickReplies
+          ),
+        });
+      }
+    }
+    return node;
+  }
+
   const handleRestart = () => {
     setDisplayedMessages([]);
     setMessageIndex(0);
@@ -64,15 +89,21 @@ export default function RcsDemo() {
         <ChatWindow
           chatWindowRef={chatWindowRef as React.RefObject<HTMLDivElement>}
         >
-          {displayedMessages.map((msg, i) => (
-            <Message
-              className={msg.text ? "txt" : "component"}
-              from={msg.from}
-              key={`${msg.from}-${i}`}
-            >
-              {msg.text ? msg.text : msg.component}
-            </Message>
-          ))}
+          {displayedMessages.map((msg, i) => {
+            let content = msg.text ? msg.text : msg.component;
+            if (msg.awaitUser && msg.component) {
+              content = addOnSelectToQuickReplies(msg.component);
+            }
+            return (
+              <Message
+                className={msg.text ? "txt" : "component"}
+                from={msg.from}
+                key={`${msg.from}-${i}`}
+              >
+                {content}
+              </Message>
+            );
+          })}
 
           {typingFrom && <TypingIndicator from={typingFrom} />}
         </ChatWindow>

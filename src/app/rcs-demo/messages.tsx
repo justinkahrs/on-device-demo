@@ -1,13 +1,20 @@
 import React from "react";
 import type { RCSMessageEvent } from "../../components/Message/Message";
-export const QuickReplies = ({ options }: { options: string[] }) => {
+export const QuickReplies = ({
+  options,
+  onSelect,
+}: {
+  options: string[];
+  onSelect?: (option: string) => void;
+}) => {
   return (
-    <div style={{ display: "flex", gap: "8px" }}>
+    <div>
       {options.map((option) => (
         <button
           key={option}
           style={{ padding: "8px 12px", borderRadius: "4px" }}
           type="button"
+          onClick={() => onSelect && onSelect(option)}
         >
           {option}
         </button>
@@ -71,8 +78,7 @@ export const PaymentConfirmation = ({ message }: { message: string }) => {
   return <div style={{ padding: "8px", fontStyle: "italic" }}>{message}</div>;
 };
 
-export const messages: RCSMessageEvent[] = [
-  // { from: "bot", text: "Step 2: Guest Arrives in Apple Messages for Business" },
+export const IntroMessages: RCSMessageEvent[] = [
   {
     from: "guest",
     text: "Hi! I just booked The Lighthouse for this weekend. Can you share some details?",
@@ -111,16 +117,20 @@ export const messages: RCSMessageEvent[] = [
   },
   {
     from: "bot",
+    awaitUser: true,
     component: (
       <>
         Would you like to:
         <QuickReplies
-          options={["View full property guide", "Get directions", "See Photos"]}
+          options={[
+            "🏠 View full property guide",
+            "🗾 Get directions",
+            "📷 See Photos",
+          ]}
         />
       </>
     ),
   },
-  // { from: "bot", text: "Step 3: Guest Requests Directions" },
   { from: "guest", text: "Get directions" },
   {
     from: "bot",
@@ -131,7 +141,6 @@ export const messages: RCSMessageEvent[] = [
       </>
     ),
   },
-  // { from: "bot", text: "Step 4: Guest Wants to See House Rules" },
   { from: "guest", text: "Can you show me the house rules?" },
   {
     from: "bot",
@@ -153,6 +162,7 @@ export const messages: RCSMessageEvent[] = [
   },
   {
     from: "bot",
+    awaitUser: true,
     component: (
       <>
         <span>Would you like a full list? </span>
@@ -170,48 +180,63 @@ export const messages: RCSMessageEvent[] = [
       </>
     ),
   },
-  // { from: "bot", text: "Step 5: Guest Requests Local Recommendations" },
+];
+export const RecommendationMessages: RCSMessageEvent[] = [
   { from: "guest", text: "What’s good to do nearby?" },
   {
+    awaitUser: true,
     from: "bot",
-    text: "There’s plenty to explore! Here are some top recommendations: Food & Drink: The Seaside Café, Pier 42 Bar. Attractions: Monterey Bay Aquarium, 17-Mile Drive.",
+    component: (
+      <>
+        <span>
+          There’s plenty to explore! Here are some top recommendations:
+        </span>
+        <QuickReplies
+          options={[
+            "🗾 Directions to a local park",
+            "🍽 Seaside Cafe Reservations",
+            "🎫 Tickets to tonight's concert",
+          ]}
+        />
+      </>
+    ),
   },
-  {
-    from: "bot",
-    text: "Would you like: Directions | 🍽 Reservations | Event tickets",
-  },
-  { from: "guest", text: "[List-Picker: Guest selects an option]" },
-  // { from: "bot", text: "Step 6: Guest Wants to Book Dinner" },
   { from: "guest", text: "🍽 Reservations at The Seaside Café" },
+  { from: "bot", text: "Would you like to book a table?" },
   {
     from: "bot",
-    text: "Great choice! Here’s their availability for Saturday night: 6:30 PM, 7:00 PM, 7:30 PM (fully booked), 8:00 PM",
+    component: (
+      <>
+        Great choice! Here’s their availability for Saturday night:
+        <QuickReplies options={["6:30 PM", "7:00 PM", "8:00 PM"]} />
+      </>
+    ),
   },
-  { from: "bot", text: "Would you like to book a table?" },
-  { from: "guest", text: "[List-Picker: Guest selects a time]" },
   { from: "guest", text: "7:00 PM" },
   {
     from: "bot",
     component: (
       <>
         <span>
-          Confirmed! Your dinner reservation is set for Saturday at 7:00 PM.{" "}
+          Confirmed! Your dinner reservation is set for Saturday at 7:00 PM.
         </span>
         <RichLink label="View Reservation" />
       </>
     ),
   },
-  // { from: "bot", text: "Step 7: Guest Needs to Contact the Owner" },
+];
+export const ContactOwnerMessages: RCSMessageEvent[] = [
   { from: "guest", text: "I have a question about the Wi-Fi." },
   {
     from: "bot",
+    awaitUser: true,
     component: (
       <>
         <span>
           Wi-Fi is available! Network: LighthouseGuest, Password: Sunset123.
           Still need help?{" "}
         </span>
-        <QuickReplies options={["Contact Owner"]} />
+        <QuickReplies options={["Contact Owner", "Never mind"]} />
       </>
     ),
   },
@@ -221,9 +246,8 @@ export const messages: RCSMessageEvent[] = [
     component: (
       <>
         <span>
-          Please describe your question. The owner will respond shortly.{" "}
+          Please describe your question. The owner will respond shortly
         </span>
-        <FormPlaceholder />
       </>
     ),
   },
@@ -232,7 +256,6 @@ export const messages: RCSMessageEvent[] = [
     from: "bot",
     text: "Your message has been sent to the owner. You’ll receive a response here shortly.",
   },
-  // { from: "bot", text: "Step 8: Owner Responds" },
   {
     from: "owner",
     component: (
@@ -251,13 +274,12 @@ export const messages: RCSMessageEvent[] = [
     from: "bot",
     text: "Happy to help! Enjoy your stay at The Lighthouse. Let us know if you need anything else.",
   },
-  // {
-  //   from: "bot",
-  //   text: "Step 9: Guest Requests Late Checkout (Apple Pay Integration)",
-  // },
+];
+export const LateCheckoutMessages: RCSMessageEvent[] = [
   { from: "guest", text: "Can I check out later on Monday?" },
   {
     from: "bot",
+    awaitUser: true,
     component: (
       <>
         <span>
@@ -285,4 +307,10 @@ export const messages: RCSMessageEvent[] = [
     from: "bot",
     text: "Payment Received! Late checkout is confirmed for Monday, 1:00 PM.",
   },
+];
+export const messages: RCSMessageEvent[] = [
+  ...IntroMessages,
+  ...RecommendationMessages,
+  ...ContactOwnerMessages,
+  ...LateCheckoutMessages,
 ];

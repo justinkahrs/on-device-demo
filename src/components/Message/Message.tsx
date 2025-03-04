@@ -7,6 +7,7 @@ export interface RCSMessageEvent {
   from: "guest" | "bot" | "owner";
   text?: string;
   component?: React.ReactNode;
+  awaitUser?: boolean;
 }
 interface MessageProps {
   from: "guest" | "bot" | "owner";
