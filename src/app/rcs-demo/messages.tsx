@@ -14,7 +14,7 @@ export const QuickReplies = ({
           key={option}
           style={{ padding: "8px 12px", borderRadius: "4px" }}
           type="button"
-          onClick={() => onSelect && onSelect(option)}
+          onClick={() => onSelect?.(option)}
         >
           {option}
         </button>

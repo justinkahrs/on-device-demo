@@ -53,7 +53,7 @@ export default function RcsDemo() {
   }, [displayedMessages, typingFrom]);
 
   function handleQuickReply(option: string) {
-    // Optionally, handle the selected option if needed
+    console.log({ option }); // TO-DO, handle multiple routes
     setMessageIndex((prev) => prev + 1);
     setShowTyping(true);
   }
@@ -61,12 +61,21 @@ export default function RcsDemo() {
   function addOnSelectToQuickReplies(node: React.ReactNode): React.ReactNode {
     if (React.isValidElement(node)) {
       if (node.type === QuickReplies) {
-        return React.cloneElement(node, { onSelect: handleQuickReply });
+        return React.cloneElement(
+          node as React.ReactElement<{
+            options: string[];
+            onSelect?: (option: string) => void;
+          }>,
+          { onSelect: handleQuickReply }
+        );
       }
-      if (node.props && node.props.children) {
-        return React.cloneElement(node, {
+      const element = node as React.ReactElement<{
+        children?: React.ReactNode;
+      }>;
+      if (element.props.children) {
+        return React.cloneElement(element, {
           children: React.Children.map(
-            node.props.children,
+            element.props.children,
             addOnSelectToQuickReplies
           ),
         });
