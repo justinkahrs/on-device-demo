@@ -19,6 +19,7 @@ export const ApplePayButton = ({ label }: ApplePayButtonProps) => {
 
   const handlePayNow = () => {
     setIsDrawerOpen(false);
+    setAnimate(false);
     resume();
   };
 
