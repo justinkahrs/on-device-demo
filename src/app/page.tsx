@@ -1,30 +1,27 @@
-// src/app/page.tsx
 "use client";
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import {
   Message,
-  type RCSMessageEvent,
   TypingIndicator,
+  type RCSMessageEvent,
 } from "../components/Message/Message";
 import { ChatWindow } from "../components/ChatWindow/ChatWindow";
-import { QuickReplies } from "../components/QuickReplies/QuickReplies";
-import { ApplePayButton } from "../components/ApplePayButton/ApplePayButton";
 import { useChat } from "../context/ChatContext";
 
 export default function RcsDemo() {
-  const {
-    displayedMessages,
-    typingFrom,
-    // messageIndex,
-    // showTyping,
-    handleQuickReply,
-    // handleRestart,
-  } = useChat();
+  const { displayedMessages, typingFrom, start, status } = useChat();
 
   const chatWindowRef = useRef<HTMLDivElement>(null);
 
-  // Always scroll to bottom on new messages or typing changes
+  // On mount, automatically start the flow if we are "idle".
   useEffect(() => {
+    if (status === "idle") {
+      start();
+    }
+  }, [status, start]);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Scroll to bottom whenever messages change or typing changes
+  useLayoutEffect(() => {
     if (chatWindowRef.current) {
       chatWindowRef.current.scrollTo({
         top: chatWindowRef.current.scrollHeight,
@@ -33,41 +30,13 @@ export default function RcsDemo() {
     }
   }, [displayedMessages, typingFrom]);
 
-  // Utility to inject onSelect for QuickReplies
-  function addOnSelectToQuickReplies(node: React.ReactNode): React.ReactNode {
-    if (React.isValidElement(node)) {
-      if (node.type === QuickReplies) {
-        return React.cloneElement(
-          node as React.ReactElement<{
-            options: string[];
-            onSelect?: (option: string) => void;
-          }>,
-          { onSelect: handleQuickReply }
-        );
-      }
-      if (node.type === ApplePayButton) {
-        return React.cloneElement(
-          node as React.ReactElement<{
-            onPay?: (option: string) => void;
-          }>,
-          {
-            onPay: handleQuickReply,
-          }
-        );
-      }
-      const element = node as React.ReactElement<{
-        children?: React.ReactNode;
-      }>;
-      if (element.props.children) {
-        return React.cloneElement(element, {
-          children: React.Children.map(
-            element.props.children,
-            addOnSelectToQuickReplies
-          ),
-        });
-      }
+  function renderMessageContent(msg: RCSMessageEvent) {
+    if (msg.text) return msg.text;
+
+    if (React.isValidElement(msg.component)) {
+      return msg.component;
     }
-    return node;
+    return null;
   }
 
   return (
@@ -75,21 +44,15 @@ export default function RcsDemo() {
       <ChatWindow
         chatWindowRef={chatWindowRef as React.RefObject<HTMLDivElement>}
       >
-        {displayedMessages.map((msg: RCSMessageEvent, i: number) => {
-          let content = msg.text ? msg.text : msg.component;
-          if (msg.awaitUser && msg.component) {
-            content = addOnSelectToQuickReplies(msg.component);
-          }
-          return (
-            <Message
-              className={msg.text ? "txt" : "component"}
-              from={msg.from}
-              key={`${msg.from}-${i}`}
-            >
-              {content}
-            </Message>
-          );
-        })}
+        {displayedMessages.map((msg, i) => (
+          <Message
+            className={msg.text ? "txt" : "component"}
+            from={msg.from}
+            key={`${msg.from}-${i}`}
+          >
+            {renderMessageContent(msg)}
+          </Message>
+        ))}
         {typingFrom && <TypingIndicator from={typingFrom} />}
       </ChatWindow>
     </>

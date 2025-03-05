@@ -1,91 +1,121 @@
-// src/context/ChatContext.tsx
 "use client";
 import React, {
   createContext,
   useContext,
   useState,
-  useEffect,
+  useCallback,
   type ReactNode,
 } from "react";
 import { messages as defaultMessages } from "../app/messages";
 import type { RCSMessageEvent } from "../components/Message/Message";
 
-// The shape of the data we'll store in context
+type ChatStatus = "idle" | "playing" | "paused" | "finished";
+
 interface ChatContextValue {
   displayedMessages: RCSMessageEvent[];
   typingFrom: "guest" | "bot" | "owner" | null;
-  isFinished: boolean;
-  messageIndex: number;
-  showTyping: boolean;
-  handleQuickReply: (option: string) => void;
-  handleRestart: () => void;
+  status: ChatStatus;
+  currentIndex: number;
+  start: () => void;
+  pause: () => void;
+  resume: () => void;
+  restart: () => void;
+  handleUserReply: (option?: string) => void;
 }
 
 const ChatContext = createContext<ChatContextValue | undefined>(undefined);
 
 export function ChatProvider({ children }: { children: ReactNode }) {
-  // The same state we used to have in page.tsx
-  const [displayedMessages, setDisplayedMessages] = useState<RCSMessageEvent[]>(
-    []
-  );
-  const [typingFrom, setTypingFrom] = useState<
-    "guest" | "bot" | "owner" | null
-  >(null);
-  const [messageIndex, setMessageIndex] = useState<number>(0);
-  const [showTyping, setShowTyping] = useState<boolean>(true);
+  const [displayedMessages, setDisplayedMessages] = useState<RCSMessageEvent[]>([]);
+  const [typingFrom, setTypingFrom] = useState<"guest" | "bot" | "owner" | null>(null);
 
-  // We can keep the same timing logic
-  const MESSAGE_DELAY_TIME = 1500; // adjust speed to liking
-  const isFinished = messageIndex >= defaultMessages.length;
-  useEffect(() => {
-    if (messageIndex >= defaultMessages.length) return;
-    const newMessage = defaultMessages[messageIndex];
-    const timerId = setTimeout(() => {
-      if (showTyping) {
-        setTypingFrom(newMessage.from);
-        setShowTyping(false);
+  // currentIndex tracks which message from defaultMessages we're about to show
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [status, setStatus] = useState<ChatStatus>("idle");
+
+  const MESSAGE_DELAY_TIME = 1500; // adjust speed
+
+  // We'll define a utility function that "displays" the next message from our array.
+  // If it's an "awaitUser" message, we stop automatically. If not, we chain the next one.
+  const showNextMessage = useCallback((nextIndex: number) => {
+    if (nextIndex >= defaultMessages.length) {
+      setStatus("finished");
+      return;
+    }
+
+    const nextMessage = defaultMessages[nextIndex];
+    // Show typing first
+    setTypingFrom(nextMessage.from);
+
+    // After a delay, add the message to displayedMessages
+    setTimeout(() => {
+      setTypingFrom(null);
+      setDisplayedMessages(prev => [...prev, nextMessage]);
+      setCurrentIndex(nextIndex + 1);
+
+      if (!nextMessage.awaitUser) {
+        // If not waiting for user, automatically schedule next message
+        setTimeout(() => {
+          showNextMessage(nextIndex + 1);
+        }, MESSAGE_DELAY_TIME);
       } else {
-        setTypingFrom(null);
-        setDisplayedMessages((prev) => [...prev, newMessage]);
-        if (!newMessage.awaitUser) {
-          setMessageIndex((i) => i + 1);
-          setShowTyping(true);
-        }
+        // If awaitUser is true, we pause
+        setStatus("paused");
       }
     }, MESSAGE_DELAY_TIME);
+  }, []);
 
-    return () => clearTimeout(timerId);
-  }, [messageIndex, showTyping]);
+  // Start from the currentIndex if we are idle or if we restarted
+  const start = useCallback(() => {
+    if (status === "finished") return;
+    setStatus("playing");
+    showNextMessage(currentIndex);
+  }, [status, currentIndex, showNextMessage]);
 
-  // QuickReply handler
-  function handleQuickReply(option: string) {
-    console.log({ option }); // Could handle routes or other logic
-    setMessageIndex((prev) => prev + 1);
-    setShowTyping(true);
-  }
+  const pause = useCallback(() => {
+    setStatus("paused");
+  }, []);
 
-  // Restart handler
-  function handleRestart() {
+  const resume = useCallback(() => {
+    if (status === "paused") {
+      setStatus("playing");
+      showNextMessage(currentIndex);
+    }
+  }, [status, currentIndex, showNextMessage]);
+
+  // This is called when the user interacts with a quick reply or button
+  const handleUserReply = useCallback((option?: string) => {
+    console.log("User selected: ", option);
+    // If we were paused because of an awaitUser message, let's resume
+    if (status === "paused" && currentIndex < defaultMessages.length) {
+      setStatus("playing");
+      showNextMessage(currentIndex);
+    }
+  }, [status, currentIndex, showNextMessage]);
+
+  // This restarts the entire conversation
+  const restart = useCallback(() => {
     setDisplayedMessages([]);
-    setMessageIndex(0);
     setTypingFrom(null);
-    setShowTyping(true);
-  }
+    setCurrentIndex(0);
+    setStatus("idle");
+  }, []);
 
   const value: ChatContextValue = {
     displayedMessages,
     typingFrom,
-    messageIndex,
-    showTyping,
-    isFinished,
-    handleQuickReply,
-    handleRestart,
+    status,
+    currentIndex,
+    start,
+    pause,
+    resume,
+    restart,
+    handleUserReply,
   };
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
 }
 
-// A convenience hook for components to consume our ChatContext
 export function useChat() {
   const context = useContext(ChatContext);
   if (!context) {
