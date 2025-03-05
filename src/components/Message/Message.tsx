@@ -1,4 +1,3 @@
-"use client";
 import type React from "react";
 import styles from "./Message.module.css";
 import classNames from "classnames";

@@ -26,8 +26,12 @@ interface ChatContextValue {
 const ChatContext = createContext<ChatContextValue | undefined>(undefined);
 
 export function ChatProvider({ children }: { children: ReactNode }) {
-  const [displayedMessages, setDisplayedMessages] = useState<RCSMessageEvent[]>([]);
-  const [typingFrom, setTypingFrom] = useState<"guest" | "bot" | "owner" | null>(null);
+  const [displayedMessages, setDisplayedMessages] = useState<RCSMessageEvent[]>(
+    []
+  );
+  const [typingFrom, setTypingFrom] = useState<
+    "guest" | "bot" | "owner" | null
+  >(null);
 
   // currentIndex tracks which message from defaultMessages we're about to show
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -50,7 +54,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     // After a delay, add the message to displayedMessages
     setTimeout(() => {
       setTypingFrom(null);
-      setDisplayedMessages(prev => [...prev, nextMessage]);
+      setDisplayedMessages((prev) => [...prev, nextMessage]);
       setCurrentIndex(nextIndex + 1);
 
       if (!nextMessage.awaitUser) {
@@ -84,14 +88,17 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   }, [status, currentIndex, showNextMessage]);
 
   // This is called when the user interacts with a quick reply or button
-  const handleUserReply = useCallback((option?: string) => {
-    console.log("User selected: ", option);
-    // If we were paused because of an awaitUser message, let's resume
-    if (status === "paused" && currentIndex < defaultMessages.length) {
-      setStatus("playing");
-      showNextMessage(currentIndex);
-    }
-  }, [status, currentIndex, showNextMessage]);
+  const handleUserReply = useCallback(
+    (option?: string) => {
+      console.log("User selected: ", option);
+      // If we were paused because of an awaitUser message, let's resume
+      if (status === "paused" && currentIndex < defaultMessages.length) {
+        setStatus("playing");
+        showNextMessage(currentIndex);
+      }
+    },
+    [status, currentIndex, showNextMessage]
+  );
 
   // This restarts the entire conversation
   const restart = useCallback(() => {

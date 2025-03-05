@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import ContactlessIcon from "@mui/icons-material/Contactless";
 import type { RCSMessageEvent } from "../components/Message/Message";

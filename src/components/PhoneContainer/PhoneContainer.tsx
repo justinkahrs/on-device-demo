@@ -1,5 +1,4 @@
 // src/components/PhoneContainer/PhoneContainer.tsx
-"use client";
 import type React from "react";
 import styles from "./PhoneContainer.module.css";
 
