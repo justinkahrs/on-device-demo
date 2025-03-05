@@ -35,7 +35,9 @@ export const IntroMessages: RCSMessageEvent[] = [
         <br />
         <strong>Address:</strong>
         <br />
-        123 Oceanview Drive, Monterey, CA
+        1150 Lighthouse Ave
+        <br />
+        Monterey, CA
       </>
     ),
   },
@@ -65,7 +67,10 @@ export const IntroMessages: RCSMessageEvent[] = [
     component: (
       <>
         <span>Here’s the fastest route to The Lighthouse. </span>
-        <RichLink label="View in Apple Maps" url="maps://?daddr=Cupertino,CA" />
+        <RichLink
+          label="View in Apple Maps"
+          url="maps://?daddr=Lighthouse Lodge & Cottages, Monterery, CA"
+        />
       </>
     ),
   },
@@ -120,14 +125,14 @@ export const RecommendationMessages: RCSMessageEvent[] = [
         <QuickReplies
           options={[
             "🗾 Directions to a local park",
-            "🍽 Seaside Cafe",
+            "🍽 Julia's Vegetarian Restaurant",
             "🎫 Tickets to tonight's concert",
           ]}
         />
       </>
     ),
   },
-  { from: "guest", text: "🍽 Seaside Café" },
+  { from: "guest", text: "🍽 Julia's Vegetarian" },
   { from: "bot", text: "Would you like to book a table?" },
   {
     awaitUser: true,
@@ -147,7 +152,8 @@ export const RecommendationMessages: RCSMessageEvent[] = [
         <span>
           Confirmed! Your dinner reservation is set for Saturday at 7:00 PM.
         </span>
-        <RichLink label="View Reservation" url="https://www.google.com" />
+        <br />
+        <RichLink label="View Reservation" url="https://www.juliasveg.com/" />
       </>
     ),
   },
