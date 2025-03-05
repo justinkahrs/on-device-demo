@@ -18,9 +18,8 @@ interface ChatContextValue {
   currentIndex: number;
   start: () => void;
   pause: () => void;
-  resume: () => void;
+  resume: (index?: number, option?: string) => void;
   restart: () => void;
-  handleUserReply: (option?: string) => void;
 }
 
 const ChatContext = createContext<ChatContextValue | undefined>(undefined);
@@ -80,25 +79,18 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     setStatus("paused");
   }, []);
 
-  const resume = useCallback(() => {
+  const resume = useCallback((index?: number) => {
     if (status === "paused") {
-      setStatus("playing");
-      showNextMessage(currentIndex);
-    }
-  }, [status, currentIndex, showNextMessage]);
-
-  // This is called when the user interacts with a quick reply or button
-  const handleUserReply = useCallback(
-    (option?: string) => {
-      console.log("User selected: ", option);
-      // If we were paused because of an awaitUser message, let's resume
-      if (status === "paused" && currentIndex < defaultMessages.length) {
-        setStatus("playing");
+      if (index !== undefined) {
+        setDisplayedMessages((prev) => prev.slice(0, index + 1));
+        setCurrentIndex(index + 1);
+        showNextMessage(index + 1);
+      } else {
         showNextMessage(currentIndex);
       }
-    },
-    [status, currentIndex, showNextMessage]
-  );
+      setStatus("playing");
+    }
+  }, [status, currentIndex, showNextMessage]);
 
   // This restarts the entire conversation
   const restart = useCallback(() => {
@@ -117,7 +109,6 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     pause,
     resume,
     restart,
-    handleUserReply,
   };
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;

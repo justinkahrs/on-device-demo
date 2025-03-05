@@ -49,6 +49,7 @@ export default function RcsDemo() {
             className={msg.text ? "txt" : "component"}
             from={msg.from}
             key={`${msg.from}-${i}`}
+            messageIndex={i}
           >
             {renderMessageContent(msg)}
           </Message>
