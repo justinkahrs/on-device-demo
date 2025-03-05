@@ -1,6 +1,12 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { PhoneContainer } from "../components/PhoneContainer/PhoneContainer";
+import { Header } from "../components/Header/Header";
+import { ChatProvider } from "../context/ChatContext";
+
+import styles from "./styles.module.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +31,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <div className={styles.appWrap}>
+          <ChatProvider>
+            <PhoneContainer>
+              <Header />
+              {children}
+            </PhoneContainer>
+          </ChatProvider>
+        </div>
       </body>
     </html>
   );

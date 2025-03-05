@@ -1,59 +1,10 @@
+// src/app/messages.tsx
 import React from "react";
 import type { RCSMessageEvent } from "../components/Message/Message";
-
-export const QuickReplies = ({
-  options,
-  onSelect,
-}: {
-  options: string[];
-  onSelect?: (option: string) => void;
-}) => {
-  return (
-    <div>
-      {options.map((option) => (
-        <button
-          key={option}
-          style={{ padding: "8px 12px", borderRadius: "4px" }}
-          type="button"
-          onClick={() => onSelect?.(option)}
-        >
-          {option}
-        </button>
-      ))}
-    </div>
-  );
-};
-export const GuestName = () => <span>Justin</span>;
-
-export const RichLink = ({
-  label,
-  url = "https://www.apple.com",
-}: {
-  label: string;
-  url?: string;
-}) => {
-  return (
-    <a href={url} style={{ color: "blue", textDecoration: "underline" }}>
-      {label}
-    </a>
-  );
-};
-
-export const ApplePayButton = ({ label }: { label: string }) => {
-  return (
-    <button
-      style={{
-        background: "black",
-        color: "white",
-        padding: "8px 16px",
-        borderRadius: "4px",
-      }}
-      type="button"
-    >
-      {label}
-    </button>
-  );
-};
+import { QuickReplies } from "../components/QuickReplies/QuickReplies";
+import { GuestName } from "../components/GuestName/GuestName";
+import { RichLink } from "../components/RichLink/RichLink";
+import { ApplePayButton } from "../components/ApplePayButton/ApplePayButton";
 
 export const IntroMessages: RCSMessageEvent[] = [
   {
@@ -153,7 +104,7 @@ export const IntroMessages: RCSMessageEvent[] = [
     component: (
       <>
         <span>Here’s the full list of house rules: </span>
-        <RichLink label="View Full House Rules" />
+        <RichLink label="View Full House Rules" url="/house-rules" />
       </>
     ),
   },
@@ -169,14 +120,14 @@ export const RecommendationMessages: RCSMessageEvent[] = [
         <QuickReplies
           options={[
             "🗾 Directions to a local park",
-            "🍽 Seaside Cafe Reservations",
+            "🍽 Seaside Cafe",
             "🎫 Tickets to tonight's concert",
           ]}
         />
       </>
     ),
   },
-  { from: "guest", text: "🍽 Reservations at The Seaside Café" },
+  { from: "guest", text: "🍽 Seaside Café" },
   { from: "bot", text: "Would you like to book a table?" },
   {
     awaitUser: true,
