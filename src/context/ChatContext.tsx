@@ -14,6 +14,7 @@ import type { RCSMessageEvent } from "../components/Message/Message";
 interface ChatContextValue {
   displayedMessages: RCSMessageEvent[];
   typingFrom: "guest" | "bot" | "owner" | null;
+  isFinished: boolean;
   messageIndex: number;
   showTyping: boolean;
   handleQuickReply: (option: string) => void;
@@ -35,7 +36,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
   // We can keep the same timing logic
   const MESSAGE_DELAY_TIME = 1500; // adjust speed to liking
-
+  const isFinished = messageIndex >= defaultMessages.length;
   useEffect(() => {
     if (messageIndex >= defaultMessages.length) return;
     const newMessage = defaultMessages[messageIndex];
@@ -76,6 +77,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     typingFrom,
     messageIndex,
     showTyping,
+    isFinished,
     handleQuickReply,
     handleRestart,
   };

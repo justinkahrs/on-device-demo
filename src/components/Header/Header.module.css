@@ -1,8 +1,8 @@
 .header {
-  background: radial-gradient(circle, #000 0%, #100 100%);
+  /* background: radial-gradient(circle, #000 0%, #100 100%); */
   border-radius: 20px 20px 0 0;
   color: #ffffff;
-  background-color: #000;
+  background-color: #AAA;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,15 +11,20 @@
   position: sticky;
   top: 0;
   z-index: 1;
-
 }
 
 .logoContainer {
   display: flex;
   align-items: center;
+  margin-right: 8px;
+}
+
+.logo {
+  margin-right: 8px;
 }
 
 .title {
+  align-items: end;
   font-weight: bold;
   font-size: 26px;
 }
@@ -53,5 +58,29 @@
 }
 
 .backButton:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.restartButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background-color: transparent;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.1s ease;
+}
+
+.restartButton:active {
   transform: translateY(-50%) scale(0.95);
 }
