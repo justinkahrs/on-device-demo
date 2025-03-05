@@ -34,7 +34,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const [showTyping, setShowTyping] = useState<boolean>(true);
 
   // We can keep the same timing logic
-  const MESSAGE_DELAY_TIME = 1; // adjust speed to liking
+  const MESSAGE_DELAY_TIME = 1500; // adjust speed to liking
 
   useEffect(() => {
     if (messageIndex >= defaultMessages.length) return;

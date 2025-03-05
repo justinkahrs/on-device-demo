@@ -8,17 +8,17 @@ import {
 } from "../components/Message/Message";
 import { ChatWindow } from "../components/ChatWindow/ChatWindow";
 import { QuickReplies } from "../components/QuickReplies/QuickReplies";
-import UndoIcon from "@mui/icons-material/Undo";
+import { ApplePayButton } from "../components/ApplePayButton/ApplePayButton";
 import { useChat } from "../context/ChatContext";
 
 export default function RcsDemo() {
   const {
     displayedMessages,
     typingFrom,
-    messageIndex,
+    // messageIndex,
     // showTyping,
     handleQuickReply,
-    handleRestart,
+    // handleRestart,
   } = useChat();
 
   const chatWindowRef = useRef<HTMLDivElement>(null);
@@ -43,6 +43,16 @@ export default function RcsDemo() {
             onSelect?: (option: string) => void;
           }>,
           { onSelect: handleQuickReply }
+        );
+      }
+      if (node.type === ApplePayButton) {
+        return React.cloneElement(
+          node as React.ReactElement<{
+            onPay?: (option: string) => void;
+          }>,
+          {
+            onPay: handleQuickReply,
+          }
         );
       }
       const element = node as React.ReactElement<{
@@ -82,12 +92,6 @@ export default function RcsDemo() {
         })}
         {typingFrom && <TypingIndicator from={typingFrom} />}
       </ChatWindow>
-      {messageIndex >= displayedMessages.length && messageIndex > 0 && (
-        <button onClick={handleRestart} type="button">
-          <UndoIcon style={{ marginRight: "8px" }} />
-          Restart Demo
-        </button>
-      )}
     </>
   );
 }

@@ -1,3 +1,4 @@
+// src/components/PhoneContainer/PhoneContainer.tsx
 "use client";
 import type React from "react";
 import styles from "./PhoneContainer.module.css";
@@ -16,6 +17,17 @@ export function PhoneContainer({ children }: PhoneContainerProps) {
       </div>
       <div className={styles.powerButton} />
       {children}
+      <div
+        id="phone-portal"
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "100%",
+          pointerEvents: "none",
+        }}
+      />
     </div>
   );
 }

@@ -20,11 +20,7 @@ export function Message({ className = "txt", from, children }: MessageProps) {
   return (
     <div className={isGuest ? styles.myMessage : styles.theirMessage}>
       <div
-        className={classNames(
-          styles.bubble,
-          styles[`bubble.${className}`],
-          styles.messageAppear
-        )}
+        className={classNames(styles.bubble, styles.messageAppear, className)}
       >
         {children}
       </div>

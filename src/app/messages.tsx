@@ -1,5 +1,6 @@
 // src/app/messages.tsx
 import React from "react";
+import ContactlessIcon from "@mui/icons-material/Contactless";
 import type { RCSMessageEvent } from "../components/Message/Message";
 import { QuickReplies } from "../components/QuickReplies/QuickReplies";
 import { GuestName } from "../components/GuestName/GuestName";
@@ -153,7 +154,11 @@ export const RecommendationMessages: RCSMessageEvent[] = [
           Confirmed! Your dinner reservation is set for Saturday at 7:00 PM.
         </span>
         <br />
-        <RichLink label="View Reservation" url="https://www.juliasveg.com/" />
+        <RichLink
+          label="View Reservation"
+          url="https://www.juliasveg.com/"
+          external
+        />
       </>
     ),
   },
@@ -166,8 +171,13 @@ export const ContactOwnerMessages: RCSMessageEvent[] = [
     component: (
       <>
         <span>
-          Wi-Fi is available! Network: LighthouseGuest, Password: Sunset123.
-          Still need help?{" "}
+          Wi-Fi is available!
+          <br />
+          <strong>Network (SSID):</strong> LighthouseGuest
+          <br />
+          <strong>Password:</strong> Sunset123.
+          <br />
+          Still need help?
         </span>
         <QuickReplies options={["Contact Owner", "Never mind"]} />
       </>
@@ -229,17 +239,33 @@ export const LateCheckoutMessages: RCSMessageEvent[] = [
   },
   { from: "guest", text: "Yes" },
   {
+    awaitUser: true,
     from: "bot",
     component: (
       <>
         <span>
-          Late Checkout Confirmed! Payment of $30 is required to finalize.{" "}
+          Late Checkout Confirmed! Payment of $30 is required to finalize.
         </span>
-        <ApplePayButton label="Pay $30 Now" />
+        <br />
+        <ApplePayButton label="Pay $30" />
       </>
     ),
   },
-  { from: "guest", text: "[Guest taps Apple Pay and confirms payment]" },
+  {
+    from: "guest",
+    component: (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignContent: "center",
+        }}
+      >
+        Payment Sent
+        <ContactlessIcon style={{ marginLeft: "8px" }} />
+      </div>
+    ),
+  },
   {
     from: "bot",
     text: "Payment Received! Late checkout is confirmed for Monday, 1:00 PM.",
