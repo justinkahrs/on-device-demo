@@ -5,7 +5,7 @@ export function QuickReplies({
   messageIndex,
   options,
 }: {
-  messageIndex: number;
+  messageIndex?: number;
   options: string[];
 }) {
   const { resume } = useChat();
