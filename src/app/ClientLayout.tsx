@@ -1,4 +1,3 @@
-"use client";
 import { ChatProvider } from "../context/ChatContext";
 import { PhoneContainer } from "../components/PhoneContainer/PhoneContainer";
 import styles from "./styles.module.css";

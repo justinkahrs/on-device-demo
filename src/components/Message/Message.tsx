@@ -1,4 +1,3 @@
-"use client";
 import type React from "react";
 import styles from "./Message.module.css";
 import classNames from "classnames";
@@ -13,6 +12,7 @@ interface MessageProps {
   from: "guest" | "bot" | "owner";
   children: React.ReactNode;
   className?: string;
+  messageIndex: number;
 }
 
 export function Message({ className = "txt", from, children }: MessageProps) {

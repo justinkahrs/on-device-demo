@@ -1,13 +1,14 @@
-// src/components/QuickReplies/QuickReplies.tsx
+import { useChat } from "@/context/ChatContext";
 import React from "react";
 
-export const QuickReplies = ({
+export function QuickReplies({
+  messageIndex,
   options,
-  onSelect,
 }: {
+  messageIndex?: number;
   options: string[];
-  onSelect?: (option: string) => void;
-}) => {
+}) {
+  const { resume } = useChat();
   return (
     <div>
       {options.map((option) => (
@@ -15,11 +16,11 @@ export const QuickReplies = ({
           key={option}
           style={{ padding: "8px 12px", borderRadius: "4px" }}
           type="button"
-          onClick={() => onSelect?.(option)}
+          onClick={() => resume(messageIndex)}
         >
           {option}
         </button>
       ))}
     </div>
   );
-};
+}

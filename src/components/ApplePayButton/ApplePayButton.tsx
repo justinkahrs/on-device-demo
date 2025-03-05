@@ -1,26 +1,37 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import AppleIcon from "@mui/icons-material/Apple";
+import { useChat } from "@/context/ChatContext";
 
 type ApplePayButtonProps = {
   label: string;
-  onPay?: () => void;
 };
 
-export const ApplePayButton = ({ label, onPay }: ApplePayButtonProps) => {
+export const ApplePayButton = ({ label }: ApplePayButtonProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [animate, setAnimate] = useState(false);
+  const { resume } = useChat();
 
   const handleButtonClick = () => {
     setIsDrawerOpen(true);
   };
 
   const handlePayNow = () => {
-    if (onPay) {
-      onPay();
-    }
     setIsDrawerOpen(false);
+    resume();
   };
+
+  useEffect(() => {
+    if (isDrawerOpen) {
+      // Delay to allow the drawer to mount before starting the animation
+      setTimeout(() => {
+        setAnimate(true);
+      }, 10);
+    } else {
+      setAnimate(false);
+    }
+  }, [isDrawerOpen]);
 
   const drawerContent = (
     <div
@@ -49,7 +60,7 @@ export const ApplePayButton = ({ label, onPay }: ApplePayButtonProps) => {
           borderTopRightRadius: "16px",
           padding: "16px",
           boxShadow: "0 -2px 8px rgba(0, 0, 0, 0.2)",
-          transform: "translateY(0)",
+          transform: animate ? "translateY(0)" : "translateY(100%)",
           transition: "transform 0.3s ease-in-out",
         }}
       >

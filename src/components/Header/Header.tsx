@@ -12,9 +12,9 @@ import { useChat } from "../../context/ChatContext";
 export function Header() {
   const router = useRouter();
   const pathname = usePathname();
-  const { isFinished } = useChat();
+  const { status } = useChat();
 
-  console.log({ isFinished });
+  const isFinished = status === "finished";
   return (
     <div className={styles.header}>
       {pathname !== "/" && (

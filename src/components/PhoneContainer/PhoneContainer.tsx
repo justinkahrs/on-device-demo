@@ -1,5 +1,4 @@
 // src/components/PhoneContainer/PhoneContainer.tsx
-"use client";
 import type React from "react";
 import styles from "./PhoneContainer.module.css";
 
@@ -10,12 +9,6 @@ interface PhoneContainerProps {
 export function PhoneContainer({ children }: PhoneContainerProps) {
   return (
     <div className={styles.phoneContainer}>
-      <div className={styles.volumeButtons}>
-        <div className={styles.volumeButton} />
-        <div className={styles.volumeButton} />
-        <div className={styles.volumeButton} />
-      </div>
-      <div className={styles.powerButton} />
       {children}
       <div
         id="phone-portal"
