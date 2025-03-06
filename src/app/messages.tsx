@@ -82,6 +82,7 @@ export const IntroMessages: RCSMessageEvent[] = [
     from: "bot",
     component: (
       <RichLink
+        external
         label="View in Apple Maps"
         url="maps://?daddr=Lighthouse Lodge & Cottages, Monterery, CA"
         urlDisplay="Lighthouse Lodge & Cottages"
@@ -169,18 +170,18 @@ export const RecommendationMessages: RCSMessageEvent[] = [
   { from: "guest", text: "7:00 PM" },
   {
     from: "bot",
+    text: "Confirmed! Your dinner reservation is set for Saturday at 7:00 PM.",
+  },
+  {
+    from: "bot",
     component: (
-      <>
-        <span>
-          Confirmed! Your dinner reservation is set for Saturday at 7:00 PM.
-        </span>
-        <br />
-        <RichLink
-          label="View Reservation"
-          url="https://www.juliasveg.com/"
-          external
-        />
-      </>
+      <RichLink
+        src="/food.jpg"
+        label="View Reservation"
+        url="https://www.juliasveg.com/"
+        urlDisplay="Julia's Vegetarian"
+        external
+      />
     ),
   },
 ];

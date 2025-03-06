@@ -4,7 +4,7 @@ import { useChat } from "@/context/ChatContext";
 
 type RichLinkProps = {
   label: string;
-  url?: string;
+  url: string;
   urlDisplay?: string;
   external?: boolean;
   src?: string;
@@ -14,7 +14,7 @@ type RichLinkProps = {
 
 export const RichLink = ({
   label,
-  url = "https://www.apple.com",
+  url,
   urlDisplay,
   external = false,
   src,
@@ -28,15 +28,15 @@ export const RichLink = ({
     if (external) {
       e.preventDefault();
       window.open(url, "_blank");
+      const resumeOnFocus = () => {
+        resume();
+        window.removeEventListener("focus", resumeOnFocus);
+      };
+      window.addEventListener("focus", resumeOnFocus);
     } else {
       e.preventDefault();
       router.push(url);
     }
-    const resumeOnFocus = () => {
-      resume();
-      window.removeEventListener("focus", resumeOnFocus);
-    };
-    window.addEventListener("focus", resumeOnFocus);
   };
 
   return (

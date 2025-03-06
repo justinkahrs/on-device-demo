@@ -15,10 +15,10 @@ export default function RcsDemo() {
 
   // On mount, automatically start the flow if we are "idle".
   useEffect(() => {
-    if (status === "idle") {
+    if (status === "idle" && displayedMessages.length === 0) {
       start();
     }
-  }, [status, start]);
+  }, [status, start, displayedMessages]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: Scroll to bottom whenever messages change or typing changes
   useLayoutEffect(() => {
