@@ -173,7 +173,7 @@ export const RecommendationMessages: RCSMessageEvent[] = [
     from: "bot",
     component: (
       <>
-        Here’s their availability for Saturday night:
+        Here’s their availability for Friday night:
         <QuickReplies options={["🕡 6:30 PM", "🕖 7:00 PM", " 🕗 8:00 PM"]} />
       </>
     ),
@@ -181,16 +181,17 @@ export const RecommendationMessages: RCSMessageEvent[] = [
   { from: "guest", text: "7:00 PM" },
   {
     from: "bot",
-    text: "Confirmed! Your dinner reservation is set for Saturday at 7:00 PM.",
+    text: "Confirmed! Your dinner reservation is set for Friday at 7:00 PM.",
   },
   {
+    awaitUser: true,
     from: "bot",
     component: (
       <RichLink
         src="/food.jpeg"
-        label="View Reservation"
-        url="https://www.juliasveg.com/"
-        urlDisplay="Julia's Vegetarian"
+        label="Friday Night Dinner Reservations"
+        url="ical://create?title=Dinner%20Reservation%20at%20Julia%27s%20Vegetarian%20Restaurant&start=20250308T190000&end=20250308T200000"
+        urlDisplay="Save to Calendar"
         external
       />
     ),

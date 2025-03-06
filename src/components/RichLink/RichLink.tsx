@@ -28,10 +28,10 @@ export const RichLink = ({
     if (external) {
       e.preventDefault();
       console.log('url.includes("maps://"): ', url.includes("maps://"));
-      if (!url.includes("maps://")) {
-        window.open(url, "_blank");
-      } else {
+      if (url.includes("maps://") || url.includes("ical://")) {
         window.location.href = url;
+      } else {
+        window.open(url, "_blank");
       }
       const resumeOnFocus = () => {
         resume();
