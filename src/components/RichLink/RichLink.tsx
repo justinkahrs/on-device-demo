@@ -31,7 +31,7 @@ export const RichLink = ({
       if (!url.includes("maps://")) {
         window.open(url, "_blank");
       } else {
-        window.open(url);
+        window.location.href = url;
       }
       const resumeOnFocus = () => {
         resume();
