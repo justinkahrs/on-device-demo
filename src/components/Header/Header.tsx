@@ -20,7 +20,7 @@ export function Header() {
       {pathname !== "/" && (
         <button
           className={styles.backButton}
-          onClick={() => router.push("/")}
+          onClick={() => router.push("/?from=house-rules")}
           type="button"
         >
           <ChevronLeftIcon fontSize="large" />

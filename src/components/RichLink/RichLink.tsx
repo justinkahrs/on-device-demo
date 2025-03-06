@@ -27,7 +27,12 @@ export const RichLink = ({
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (external) {
       e.preventDefault();
-      window.open(url, "_blank");
+      console.log('url.includes("maps://"): ', url.includes("maps://"));
+      if (!url.includes("maps://")) {
+        window.open(url, "_blank");
+      } else {
+        window.open(url);
+      }
       const resumeOnFocus = () => {
         resume();
         window.removeEventListener("focus", resumeOnFocus);

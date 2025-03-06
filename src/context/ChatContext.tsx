@@ -53,7 +53,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     // After a delay, add the message to displayedMessages
     setTimeout(() => {
       setTypingFrom(null);
-      setDisplayedMessages((prev) => [...prev, nextMessage]);
+        setDisplayedMessages((prev) => prev.includes(nextMessage) ? prev : [...prev, nextMessage]);
       setCurrentIndex(nextIndex + 1);
 
       if (!nextMessage.awaitUser) {

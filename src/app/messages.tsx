@@ -176,7 +176,7 @@ export const RecommendationMessages: RCSMessageEvent[] = [
     from: "bot",
     component: (
       <RichLink
-        src="/food.jpg"
+        src="/food.jpeg"
         label="View Reservation"
         url="https://www.juliasveg.com/"
         urlDisplay="Julia's Vegetarian"
