@@ -156,7 +156,18 @@ export const RecommendationMessages: RCSMessageEvent[] = [
     ),
   },
   { from: "guest", text: "🍽 Julia's Vegetarian" },
-  { from: "bot", text: "Would you like to book a table?" },
+  {
+    awaitUser: true,
+    from: "bot",
+    component: (
+      <>
+        Would you like to book a table?
+        <br />
+        <QuickReplies options={["Yes", "No"]} />
+      </>
+    ),
+  },
+  { from: "guest", text: "Yes" },
   {
     awaitUser: true,
     from: "bot",
