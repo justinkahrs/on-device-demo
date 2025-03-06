@@ -5,10 +5,16 @@ import AppleIcon from "@mui/icons-material/Apple";
 import { useChat } from "@/context/ChatContext";
 
 type ApplePayButtonProps = {
+  copy?: string;
   label: string;
+  type?: string;
 };
 
-export const ApplePayButton = ({ label }: ApplePayButtonProps) => {
+export const ApplePayButton = ({
+  copy = "Double Click Side Button to Pay",
+  label,
+  type = "pay",
+}: ApplePayButtonProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [animate, setAnimate] = useState(false);
   const { resume } = useChat();
@@ -66,7 +72,7 @@ export const ApplePayButton = ({ label }: ApplePayButtonProps) => {
         }}
       >
         <h3 style={{ margin: 0, marginBottom: "8px", textAlign: "center" }}>
-          Apple Pay
+          Apple {`${type === "wallet" ? "Wallet" : "Pay"}`}
         </h3>
         <p
           style={{
@@ -76,7 +82,7 @@ export const ApplePayButton = ({ label }: ApplePayButtonProps) => {
             fontSize: "15px",
           }}
         >
-          Double Click Side Button to Pay
+          {copy}
         </p>
         <button
           style={{
@@ -108,8 +114,9 @@ export const ApplePayButton = ({ label }: ApplePayButtonProps) => {
           display: "flex",
           alignContent: "center",
           alignItems: "center",
-          padding: "8px 16px",
-          borderRadius: "4px",
+          padding: "8px 20px",
+          marginTop: "6px",
+          borderRadius: "20px",
         }}
         type="button"
         onClick={handleButtonClick}

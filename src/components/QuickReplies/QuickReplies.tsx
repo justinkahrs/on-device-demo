@@ -14,7 +14,17 @@ export function QuickReplies({
       {options.map((option) => (
         <button
           key={option}
-          style={{ padding: "8px 12px", borderRadius: "4px" }}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignContent: "center",
+            alignItems: "center",
+            padding: "8px 20px",
+            marginTop: "6px",
+            textAlign: "center",
+            borderRadius: "20px",
+            width: "100%",
+          }}
           type="button"
           onClick={() => resume(messageIndex)}
         >

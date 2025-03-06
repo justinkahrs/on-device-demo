@@ -42,8 +42,19 @@ export const IntroMessages: RCSMessageEvent[] = [
     ),
   },
   {
+    awaitUser: true,
     from: "bot",
-    text: "Key Access: Smart Lock (Code will be shared 24 hours before check-in)",
+    component: (
+      <>
+        <strong>Key Access:</strong> Smart Lock
+        <br />
+        <ApplePayButton
+          copy="Code will be shared 24 hours before check-in"
+          label="Apple Wallet"
+          type="wallet"
+        />
+      </>
+    ),
   },
   {
     from: "bot",
@@ -53,9 +64,9 @@ export const IntroMessages: RCSMessageEvent[] = [
         Would you like to:
         <QuickReplies
           options={[
-            "🏠 View full property guide",
+            "🏠 See property guide",
             "🗾 Get directions",
-            "📷 See Photos",
+            "📷 See photos",
           ]}
         />
       </>
@@ -64,14 +75,18 @@ export const IntroMessages: RCSMessageEvent[] = [
   { from: "guest", text: "Get directions" },
   {
     from: "bot",
+    component: <span>Here&apos;s the fastest route to The Lighthouse:</span>,
+  },
+  {
+    awaitUser: true,
+    from: "bot",
     component: (
-      <>
-        <span>Here’s the fastest route to The Lighthouse. </span>
-        <RichLink
-          label="View in Apple Maps"
-          url="maps://?daddr=Lighthouse Lodge & Cottages, Monterery, CA"
-        />
-      </>
+      <RichLink
+        label="View in Apple Maps"
+        url="maps://?daddr=Lighthouse Lodge & Cottages, Monterery, CA"
+        urlDisplay="Lighthouse Lodge & Cottages"
+        src="/lighthouse-lodge-cottages.jpg"
+      />
     ),
   },
   { from: "guest", text: "Can you show me the house rules?" },
@@ -81,13 +96,13 @@ export const IntroMessages: RCSMessageEvent[] = [
       <>
         Of course!
         <br />
-        Here are the key house rules:
+        <strong>Key house rules:</strong>
         <br />
-        No smoking indoors
+        No smoking indoors!
         <br />
         Quiet hours: 10 PM – 7 AM
         <br />
-        No pets
+        No pets, please
         <br />
         Max occupancy: 4 guests
       </>
@@ -105,11 +120,18 @@ export const IntroMessages: RCSMessageEvent[] = [
   },
   { from: "guest", text: "Yes" },
   {
+    awaitUser: true,
     from: "bot",
     component: (
       <>
         <span>Here’s the full list of house rules: </span>
-        <RichLink label="View Full House Rules" url="/house-rules" />
+        <br />
+        <RichLink
+          src="/rules.jpg"
+          label="View Full House Rules"
+          url="/house-rules"
+          urlDisplay="The Do's and Don'ts"
+        />
       </>
     ),
   },
