@@ -1,4 +1,5 @@
 import type React from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useChat } from "@/context/ChatContext";
 
@@ -56,11 +57,12 @@ export const RichLink = ({
       }}
     >
       {src && (
-        <div style={{ width: "100%", height: "150px", overflow: "hidden" }}>
-          <img
+        <div style={{ width: "100%", height: "150px", overflow: "hidden", position: "relative" }}>
+          <Image
             src={src}
             alt={label}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            fill
+            style={{ objectFit: "cover" }}
           />
         </div>
       )}
