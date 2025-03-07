@@ -24,8 +24,18 @@ export function ChatWindow({ children, chatWindowRef }: ChatWindowProps) {
       router.replace(pathname);
     }
   }, [resume, searchParams, router, pathname]);
+
+  const handleSkipMessage = () => {
+    resume();
+  };
+
   return (
-    <div ref={chatWindowRef} className={styles.chatWindow}>
+    <div
+      ref={chatWindowRef}
+      className={styles.chatWindow}
+      onClick={handleSkipMessage}
+      onKeyDown={handleSkipMessage}
+    >
       {children}
     </div>
   );

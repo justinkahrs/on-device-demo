@@ -60,6 +60,7 @@ export const ApplePayButton = ({
       }}
     >
       <div
+        onClick={(e) => e.stopPropagation()}
         style={{
           backgroundColor: "#fff",
           width: "100%",
@@ -71,6 +72,7 @@ export const ApplePayButton = ({
           transform: animate ? "translateY(0)" : "translateY(100%)",
           transition: "transform 0.3s ease-in-out",
         }}
+        onKeyDown={(e) => e.stopPropagation()}
       >
         <h3 style={{ margin: 0, marginBottom: "8px", textAlign: "center" }}>
           Apple {`${type === "wallet" ? "Wallet" : "Pay"}`}
