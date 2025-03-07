@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { Suspense, useEffect, useLayoutEffect, useRef } from "react";
 import {
   Message,
   TypingIndicator,
@@ -7,10 +7,9 @@ import {
 } from "../components/Message/Message";
 import { ChatWindow } from "../components/ChatWindow/ChatWindow";
 import { useChat } from "../context/ChatContext";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 export default function RcsDemo() {
-  const { displayedMessages, typingFrom, start, status, resume } = useChat();
+  const { displayedMessages, typingFrom, start, status } = useChat();
 
   const chatWindowRef = useRef<HTMLDivElement>(null);
 
@@ -20,19 +19,6 @@ export default function RcsDemo() {
       start();
     }
   }, [status, start, displayedMessages]);
-
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  // If coming from house-rules, resume the conversation using Next.js search params
-  useEffect(() => {
-    const from = searchParams.get("from");
-    if (from === "house-rules") {
-      resume();
-      router.replace(pathname);
-    }
-  }, [resume, searchParams, router, pathname]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: Scroll to bottom whenever messages change or typing changes
   useLayoutEffect(() => {
@@ -54,7 +40,7 @@ export default function RcsDemo() {
   }
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <ChatWindow
         chatWindowRef={chatWindowRef as React.RefObject<HTMLDivElement>}
       >
@@ -70,6 +56,6 @@ export default function RcsDemo() {
         ))}
         {typingFrom && <TypingIndicator from={typingFrom} />}
       </ChatWindow>
-    </>
+    </Suspense>
   );
 }
