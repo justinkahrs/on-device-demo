@@ -24,6 +24,9 @@ export function QuickReplies({
             textAlign: "center",
             borderRadius: "20px",
             width: "100%",
+            backgroundColor: "#ffffff",
+            border: "none",
+            WebkitAppearance: "none",
           }}
           type="button"
           onClick={() => resume(messageIndex)}
