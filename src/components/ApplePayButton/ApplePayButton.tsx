@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import AppleIcon from "@mui/icons-material/Apple";
 import { useChat } from "@/context/ChatContext";
+import { CommonButton } from "@/components/CommonButton/CommonButton";
 
 type ApplePayButtonProps = {
   copy?: string;
@@ -84,20 +85,22 @@ export const ApplePayButton = ({
         >
           {copy}
         </p>
-        <button
-          style={{
+        <CommonButton
+          rippleColor="rgba(255,255,255,0.4)"
+          styleOverride={{
             background: "black",
             color: "white",
             padding: "12px 24px",
             borderRadius: "8px",
             width: "100%",
             fontSize: "16px",
+            justifyContent: "center",
           }}
           type="button"
           onClick={handlePayNow}
         >
           Confirm
-        </button>
+        </CommonButton>
       </div>
     </div>
   );
@@ -107,13 +110,13 @@ export const ApplePayButton = ({
 
   return (
     <>
-      <button
-        style={{
+      <CommonButton
+        rippleColor="rgba(255,255,255,0.4)"
+        styleOverride={{
           background: "black",
           color: "white",
           display: "flex",
-          alignContent: "center",
-          alignItems: "center",
+          justifyContent: "center",
           padding: "8px 20px",
           marginTop: "6px",
           borderRadius: "20px",
@@ -123,7 +126,7 @@ export const ApplePayButton = ({
       >
         <AppleIcon style={{ marginRight: "6px" }} />
         {label}
-      </button>
+      </CommonButton>
       {isDrawerOpen && portalContainer
         ? ReactDOM.createPortal(drawerContent, portalContainer)
         : null}

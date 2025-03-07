@@ -1,5 +1,6 @@
 import { useChat } from "@/context/ChatContext";
 import React from "react";
+import { CommonButton } from "@/components/CommonButton/CommonButton";
 
 export function QuickReplies({
   messageIndex,
@@ -12,27 +13,15 @@ export function QuickReplies({
   return (
     <div>
       {options.map((option) => (
-        <button
+        <CommonButton
+          rippleColor="rgba(0, 0, 0, 0.34)"
           key={option}
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignContent: "center",
-            alignItems: "center",
-            padding: "8px 20px",
-            marginTop: "6px",
-            textAlign: "center",
-            borderRadius: "20px",
-            width: "100%",
-            backgroundColor: "#ffffff",
-            border: "none",
-            WebkitAppearance: "none",
-          }}
+          styleOverride={{ backgroundColor: "#ffffff" }}
           type="button"
           onClick={() => resume(messageIndex)}
         >
           {option}
-        </button>
+        </CommonButton>
       ))}
     </div>
   );
