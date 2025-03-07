@@ -1,6 +1,7 @@
-import type React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Message.module.css";
 import classNames from "classnames";
+import { useShowContinue } from "../../hooks/useShowContinue";
 
 export interface RCSMessageEvent {
   from: "guest" | "bot" | "owner";
@@ -13,19 +14,44 @@ interface MessageProps {
   children: React.ReactNode;
   className?: string;
   messageIndex: number;
+  isLatestBotMessage?: boolean;
 }
 
-export function Message({ className = "txt", from, children }: MessageProps) {
+export function Message({
+  className = "txt",
+  from,
+  children,
+  isLatestBotMessage,
+}: MessageProps) {
   const isGuest = from === "guest";
+  const { setShowContinue, showContinue } = useShowContinue(
+    from === "bot" && !!isLatestBotMessage
+  );
+
+  const handleButtonClick = (e) => {
+    e.stopPropagation();
+    setShowContinue(false);
+  };
   return (
-    <div className={isGuest ? styles.myMessage : styles.theirMessage}>
+    <div
+      className={isGuest ? styles.myMessage : styles.theirMessage}
+      style={{
+        display: "flex",
+        justifyContent: isGuest ? "flex-end" : "space-between",
+      }}
+    >
       <div
-        onClick={(e) => e.stopPropagation()}
-        onKeyDown={(e) => e.stopPropagation()}
+        onClick={handleButtonClick}
+        onKeyDown={handleButtonClick}
         className={classNames(styles.bubble, styles.messageAppear, className)}
       >
         {children}
       </div>
+      {from === "bot" && showContinue && (
+        <div className={styles.continueText} style={{ alignContent: "center" }}>
+          … or tap to continue
+        </div>
+      )}
     </div>
   );
 }

@@ -26,6 +26,7 @@ export function ChatWindow({ children, chatWindowRef }: ChatWindowProps) {
   }, [resume, searchParams, router, pathname]);
 
   const handleSkipMessage = () => {
+    window.dispatchEvent(new Event('resumeConversation'));
     resume();
   };
 

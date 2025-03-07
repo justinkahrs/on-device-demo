@@ -10,6 +10,9 @@ import { useChat } from "../context/ChatContext";
 
 export default function RcsDemo() {
   const { displayedMessages, typingFrom, start, status } = useChat();
+  const lastBotMessageIndex = displayedMessages.reduce((acc, msg, index) => {
+    return msg.from === "bot" ? index : acc;
+  }, -1);
 
   const chatWindowRef = useRef<HTMLDivElement>(null);
 
@@ -50,6 +53,7 @@ export default function RcsDemo() {
             from={msg.from}
             key={`${msg.from}-${i}`}
             messageIndex={i}
+            isLatestBotMessage={msg.from === "bot" && i === lastBotMessageIndex}
           >
             {renderMessageContent(msg)}
           </Message>

@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import AppleIcon from "@mui/icons-material/Apple";
 import { useChat } from "@/context/ChatContext";
 import { CommonButton } from "@/components/CommonButton/CommonButton";
+import { useShowContinue } from "@/hooks/useShowContinue";
 
 type AppleButtonProps = {
   copy?: string;

@@ -1,6 +1,7 @@
 import { useChat } from "@/context/ChatContext";
 import React from "react";
 import { CommonButton } from "@/components/CommonButton/CommonButton";
+import { useShowContinue } from "@/hooks/useShowContinue";
 
 export function QuickReplies({
   messageIndex,
@@ -10,6 +11,7 @@ export function QuickReplies({
   options: string[];
 }) {
   const { resume } = useChat();
+  const { setShowContinue } = useShowContinue(false);
   return (
     <div>
       {options.map((option) => (
@@ -18,7 +20,10 @@ export function QuickReplies({
           key={option}
           styleOverride={{ backgroundColor: "#ffffff" }}
           type="button"
-          onClick={() => resume(messageIndex)}
+          onClick={() => {
+            setShowContinue(false);
+            resume(messageIndex);
+          }}
         >
           {option}
         </CommonButton>
