@@ -4,7 +4,7 @@ import type { RCSMessageEvent } from "../components/Message/Message";
 import { QuickReplies } from "../components/QuickReplies/QuickReplies";
 import { GuestName } from "../components/GuestName/GuestName";
 import { RichLink } from "../components/RichLink/RichLink";
-import { ApplePayButton } from "../components/ApplePayButton/ApplePayButton";
+import { AppleButton } from "../components/AppleButton/AppleButton";
 
 export const IntroMessages: RCSMessageEvent[] = [
   {
@@ -48,7 +48,7 @@ export const IntroMessages: RCSMessageEvent[] = [
       <>
         <strong>Key Access:</strong> Smart Lock
         <br />
-        <ApplePayButton
+        <AppleButton
           copy="Code will be shared 24 hours before check-in"
           label="Apple Wallet"
           type="wallet"
@@ -281,7 +281,7 @@ export const LateCheckoutMessages: RCSMessageEvent[] = [
           Late Checkout Confirmed! Payment of $30 is required to finalize.
         </span>
         <br />
-        <ApplePayButton label="Pay $30" />
+        <AppleButton label="Pay $30" />
       </>
     ),
   },

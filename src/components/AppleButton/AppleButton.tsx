@@ -5,17 +5,17 @@ import AppleIcon from "@mui/icons-material/Apple";
 import { useChat } from "@/context/ChatContext";
 import { CommonButton } from "@/components/CommonButton/CommonButton";
 
-type ApplePayButtonProps = {
+type AppleButtonProps = {
   copy?: string;
   label: string;
   type?: string;
 };
 
-export const ApplePayButton = ({
+export const AppleButton = ({
   copy = "Double Click Side Button to Pay",
   label,
   type = "pay",
-}: ApplePayButtonProps) => {
+}: AppleButtonProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [animate, setAnimate] = useState(false);
   const { resume } = useChat();
@@ -43,6 +43,7 @@ export const ApplePayButton = ({
 
   const drawerContent = (
     <div
+      onClick={(e) => e.stopPropagation()}
       style={{
         position: "absolute",
         top: 0,
@@ -58,6 +59,7 @@ export const ApplePayButton = ({
         pointerEvents: "auto",
         zIndex: 999,
       }}
+      onKeyDown={(e) => e.stopPropagation()}
     >
       <div
         onClick={(e) => e.stopPropagation()}

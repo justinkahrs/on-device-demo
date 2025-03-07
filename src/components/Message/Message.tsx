@@ -20,6 +20,8 @@ export function Message({ className = "txt", from, children }: MessageProps) {
   return (
     <div className={isGuest ? styles.myMessage : styles.theirMessage}>
       <div
+        onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
         className={classNames(styles.bubble, styles.messageAppear, className)}
       >
         {children}
