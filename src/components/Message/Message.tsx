@@ -28,7 +28,7 @@ export function Message({
     from === "bot" && !!isLatestBotMessage
   );
 
-  const handleButtonClick = (e) => {
+  const handleButtonClick = (e: React.SyntheticEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setShowContinue(false);
   };
@@ -48,7 +48,10 @@ export function Message({
         {children}
       </div>
       {from === "bot" && showContinue && (
-        <div className={styles.continueText} style={{ alignContent: "center" }}>
+        <div
+          className={styles.continueText}
+          style={{ alignContent: "center", textAlign: "center" }}
+        >
           … or tap to continue
         </div>
       )}

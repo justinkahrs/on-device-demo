@@ -7,7 +7,7 @@ export function useShowContinue(trigger: boolean) {
     if (trigger) {
       const timer = setTimeout(() => {
         setShowContinue(true);
-      }, 5000);
+      }, 30000);
       return () => clearTimeout(timer);
     }
     setShowContinue(false);
