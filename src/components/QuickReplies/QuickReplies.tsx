@@ -18,7 +18,10 @@ export function QuickReplies({
         <CommonButton
           rippleColor="rgba(0, 0, 0, 0.34)"
           key={option}
-          styleOverride={{ backgroundColor: "#ffffff" }}
+          styleOverride={{
+            backgroundColor: "#ffffff",
+            color: "#0088FF",
+          }}
           type="button"
           onClick={() => {
             setShowContinue(false);

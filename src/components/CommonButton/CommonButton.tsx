@@ -1,6 +1,6 @@
 import type React from "react";
 import { useState } from "react";
-import { motion, AnimatePresence, HTMLMotionProps } from "framer-motion";
+import { motion, AnimatePresence, type HTMLMotionProps } from "framer-motion";
 
 interface CommonButtonProps extends HTMLMotionProps<"button"> {
   children: React.ReactNode;
