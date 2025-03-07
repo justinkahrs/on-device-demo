@@ -223,7 +223,7 @@ export const ContactOwnerMessages: RCSMessageEvent[] = [
     component: (
       <>
         <span>
-          Please describe your question. The owner will respond shortly
+          Please describe your question. The owner will respond shortly.
         </span>
       </>
     ),
