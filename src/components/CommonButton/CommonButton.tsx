@@ -17,9 +17,7 @@ export function CommonButton({
 }: CommonButtonProps) {
   const [ripple, setRipple] = useState(false);
 
-  const triggerRipple = (
-    e: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>
-  ) => {
+  const triggerRipple = () => {
     setRipple(true);
     // Clear ripple after animation duration (0.5s)
     setTimeout(() => {
