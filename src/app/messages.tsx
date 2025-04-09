@@ -42,7 +42,7 @@ export const IntroMessages: RCSMessageEvent[] = [
     ),
   },
   {
-    awaitUser: true,
+    // awaitUser: true,
     from: "bot",
     component: (
       <>
@@ -58,7 +58,7 @@ export const IntroMessages: RCSMessageEvent[] = [
   },
   {
     from: "bot",
-    awaitUser: true,
+    // awaitUser: true,
     component: (
       <>
         Would you like to:
@@ -78,7 +78,7 @@ export const IntroMessages: RCSMessageEvent[] = [
     component: <span>Here&apos;s the fastest route to The Lighthouse:</span>,
   },
   {
-    awaitUser: true,
+    // awaitUser: true,
     from: "bot",
     component: (
       <RichLink
@@ -111,7 +111,7 @@ export const IntroMessages: RCSMessageEvent[] = [
   },
   {
     from: "bot",
-    awaitUser: true,
+    // awaitUser: true,
     component: (
       <>
         <span>Would you like a full list? </span>
@@ -121,7 +121,7 @@ export const IntroMessages: RCSMessageEvent[] = [
   },
   { from: "guest", text: "Yes" },
   {
-    awaitUser: true,
+    // awaitUser: true,
     from: "bot",
     component: (
       <>
@@ -140,7 +140,7 @@ export const IntroMessages: RCSMessageEvent[] = [
 export const RecommendationMessages: RCSMessageEvent[] = [
   { from: "guest", text: "What’s fun to do around here?" },
   {
-    awaitUser: true,
+    // awaitUser: true,
     from: "bot",
     component: (
       <>
@@ -157,7 +157,7 @@ export const RecommendationMessages: RCSMessageEvent[] = [
   },
   { from: "guest", text: "🍽 Julia's Vegetarian" },
   {
-    awaitUser: true,
+    // awaitUser: true,
     from: "bot",
     component: (
       <>
@@ -169,7 +169,7 @@ export const RecommendationMessages: RCSMessageEvent[] = [
   },
   { from: "guest", text: "Yes" },
   {
-    awaitUser: true,
+    // awaitUser: true,
     from: "bot",
     component: (
       <>
@@ -184,7 +184,7 @@ export const RecommendationMessages: RCSMessageEvent[] = [
     text: "Confirmed! Your dinner reservation is set for Friday at 7:00 PM.",
   },
   {
-    awaitUser: true,
+    // awaitUser: true,
     from: "bot",
     component: (
       <RichLink
@@ -201,7 +201,7 @@ export const ContactOwnerMessages: RCSMessageEvent[] = [
   { from: "guest", text: "I have a question about the Wi-Fi." },
   {
     from: "bot",
-    awaitUser: true,
+    // awaitUser: true,
     component: (
       <>
         <span>
@@ -260,7 +260,7 @@ export const LateCheckoutMessages: RCSMessageEvent[] = [
   { from: "guest", text: "Can I check out later on Monday?" },
   {
     from: "bot",
-    awaitUser: true,
+    // awaitUser: true,
     component: (
       <>
         <span>
@@ -273,7 +273,7 @@ export const LateCheckoutMessages: RCSMessageEvent[] = [
   },
   { from: "guest", text: "Yes" },
   {
-    awaitUser: true,
+    // awaitUser: true,
     from: "bot",
     component: (
       <>
