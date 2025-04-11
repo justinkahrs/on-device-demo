@@ -33,7 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-NVQMT2W6CD"
+          src="https://www.googletagmanager.com/gtag/js?id=G-FY7LC2PWMM"
           strategy="afterInteractive"
         />
         <Script id="gtag-init" strategy="afterInteractive">
@@ -41,7 +41,7 @@ export default function RootLayout({
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-NVQMT2W6CD');
+          gtag('config', 'G-FY7LC2PWMM');
         `}
         </Script>
         <div className={styles.appWrap}>
