@@ -7,6 +7,7 @@ import { Header } from "../components/Header/Header";
 import { ChatProvider } from "../context/ChatContext";
 
 import styles from "./styles.module.css";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-NVQMT2W6CD"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-NVQMT2W6CD');
+        `}
+        </Script>
         <div className={styles.appWrap}>
           <ChatProvider>
             <PhoneContainer>
