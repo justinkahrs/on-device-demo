@@ -15,7 +15,7 @@
     "@mui/material": "^6.4.6",
     "classnames": "^2.5.1",
     "framer-motion": "^12.4.10",
-    "next": "15.2.0",
+    "next": "15.2.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.0.1"
