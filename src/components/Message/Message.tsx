@@ -3,11 +3,16 @@ import styles from "./Message.module.css";
 import classNames from "classnames";
 import { useShowContinue } from "../../hooks/useShowContinue";
 
+export type MessagePointer = number | string;
+
 export interface RCSMessageEvent {
+  id?: string;
   from: "guest" | "bot" | "owner";
   text?: string;
   component?: React.ReactNode;
   awaitUser?: boolean;
+  next?: MessagePointer;
+  branches?: Record<string, MessagePointer>;
 }
 interface MessageProps {
   from: "guest" | "bot" | "owner";

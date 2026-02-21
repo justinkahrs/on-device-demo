@@ -1,7 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import type React from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useChat } from "@/context/ChatContext";
+import { useChat } from "../../context/ChatContext";
 
 type RichLinkProps = {
   label: string;
@@ -11,6 +10,8 @@ type RichLinkProps = {
   src?: string;
   subtitle?: string;
   body?: string;
+  onNavigate?: (url: string) => void;
+  resumeOnInternalNavigation?: boolean;
 };
 
 export const RichLink = ({
@@ -21,27 +22,37 @@ export const RichLink = ({
   src,
   subtitle,
   body,
+  onNavigate,
+  resumeOnInternalNavigation = false,
 }: RichLinkProps) => {
-  const router = useRouter();
   const { resume } = useChat();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+
     if (external) {
-      e.preventDefault();
-      console.log('url.includes("maps://"): ', url.includes("maps://"));
       if (url.includes("maps://") || url.includes("ical://")) {
         window.location.href = url;
       } else {
-        window.open(url, "_blank");
+        window.open(url, "_blank", "noopener,noreferrer");
       }
+
       const resumeOnFocus = () => {
         resume();
         window.removeEventListener("focus", resumeOnFocus);
       };
       window.addEventListener("focus", resumeOnFocus);
+      return;
+    }
+
+    if (onNavigate) {
+      onNavigate(url);
     } else {
-      e.preventDefault();
-      router.push(url);
+      window.location.href = url;
+    }
+
+    if (resumeOnInternalNavigation) {
+      resume();
     }
   };
 
@@ -57,12 +68,19 @@ export const RichLink = ({
       }}
     >
       {src && (
-        <div style={{ width: "100%", height: "150px", overflow: "hidden", position: "relative" }}>
-          <Image
+        <div
+          style={{
+            width: "100%",
+            height: "150px",
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <img
             src={src}
             alt={label}
-            fill
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "cover", width: "100%", height: "100%" }}
+            loading="lazy"
           />
         </div>
       )}

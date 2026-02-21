@@ -23,6 +23,20 @@
   margin-right: 8px;
 }
 
+.logoFallback {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #f2f4f8;
+  color: #56637d;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
 .title {
   align-items: end;
   font-weight: bold;

@@ -1,12 +1,14 @@
 import React from "react";
 import ContactlessIcon from "@mui/icons-material/Contactless";
-import type { RCSMessageEvent } from "../components/Message/Message";
-import { QuickReplies } from "../components/QuickReplies/QuickReplies";
-import { GuestName } from "../components/GuestName/GuestName";
-import { RichLink } from "../components/RichLink/RichLink";
-import { AppleButton } from "../components/AppleButton/AppleButton";
+import {
+  AppleButton,
+  GuestName,
+  QuickReplies,
+  RichLink,
+  type MockMessageScript,
+} from "../lib";
 
-export const IntroMessages: RCSMessageEvent[] = [
+export const IntroMessages: MockMessageScript[] = [
   {
     from: "guest",
     text: "Hi! I just booked The Lighthouse for this weekend. Can you share some details?",
@@ -57,22 +59,28 @@ export const IntroMessages: RCSMessageEvent[] = [
     ),
   },
   {
+    id: "intro-action-choice",
     from: "bot",
     awaitUser: true,
+    branches: {
+      guide: "intro-guide-guest",
+      directions: "intro-directions-guest",
+      photos: "intro-photos-guest",
+    },
     component: (
       <>
         Would you like to:
         <QuickReplies
           options={[
-            "🏠 See property guide",
-            "🗾 Get directions",
-            "📷 See photos",
+            { label: "🏠 See property guide", value: "guide" },
+            { label: "🗾 Get directions", value: "directions" },
+            { label: "📷 See photos", value: "photos" },
           ]}
         />
       </>
     ),
   },
-  { from: "guest", text: "Get directions" },
+  { id: "intro-directions-guest", from: "guest", text: "Get directions" },
   {
     from: "bot",
     component: <span>Here&apos;s the fastest route to The Lighthouse:</span>,
@@ -90,7 +98,47 @@ export const IntroMessages: RCSMessageEvent[] = [
       />
     ),
   },
-  { from: "guest", text: "Can you show me the house rules?" },
+  {
+    from: "bot",
+    text: "Easy. I can also pull up house rules if you want.",
+    next: "intro-house-rules-start",
+  },
+  { id: "intro-guide-guest", from: "guest", text: "See property guide" },
+  {
+    from: "bot",
+    component: (
+      <>
+        Great idea. You&apos;ll have full access to:
+        <br />
+        Pool + hot tub
+        <br />
+        On-site parking
+        <br />
+        Self check-in support
+      </>
+    ),
+    next: "intro-house-rules-start",
+  },
+  { id: "intro-photos-guest", from: "guest", text: "See photos" },
+  {
+    awaitUser: true,
+    from: "bot",
+    component: (
+      <RichLink
+        external
+        label="Browse property photos"
+        url="/lighthouse-lodge-cottages.jpg"
+        urlDisplay="Photo gallery"
+        src="/lighthouse-lodge-cottages.jpg"
+      />
+    ),
+  },
+  {
+    from: "bot",
+    text: "Nice view, right? I can share the house rules next.",
+    next: "intro-house-rules-start",
+  },
+  { id: "intro-house-rules-start", from: "guest", text: "Can you show me the house rules?" },
   {
     from: "bot",
     component: (
@@ -132,12 +180,13 @@ export const IntroMessages: RCSMessageEvent[] = [
           label="View Full House Rules"
           url="/house-rules"
           urlDisplay="The Do's and Don'ts"
+          external
         />
       </>
     ),
   },
 ];
-export const RecommendationMessages: RCSMessageEvent[] = [
+export const RecommendationMessages: MockMessageScript[] = [
   { from: "guest", text: "What’s fun to do around here?" },
   {
     awaitUser: true,
@@ -197,7 +246,7 @@ export const RecommendationMessages: RCSMessageEvent[] = [
     ),
   },
 ];
-export const ContactOwnerMessages: RCSMessageEvent[] = [
+export const ContactOwnerMessages: MockMessageScript[] = [
   { from: "guest", text: "I have a question about the Wi-Fi." },
   {
     from: "bot",
@@ -256,7 +305,7 @@ export const ContactOwnerMessages: RCSMessageEvent[] = [
     text: "Happy to help! Enjoy your stay at The Lighthouse. Let us know if you need anything else.",
   },
 ];
-export const LateCheckoutMessages: RCSMessageEvent[] = [
+export const LateCheckoutMessages: MockMessageScript[] = [
   { from: "guest", text: "Can I check out later on Monday?" },
   {
     from: "bot",
@@ -306,7 +355,7 @@ export const LateCheckoutMessages: RCSMessageEvent[] = [
   },
 ];
 
-export const messages: RCSMessageEvent[] = [
+export const messages: MockMessageScript[] = [
   ...IntroMessages,
   ...RecommendationMessages,
   ...ContactOwnerMessages,

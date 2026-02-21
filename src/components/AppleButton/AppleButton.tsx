@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import AppleIcon from "@mui/icons-material/Apple";
-import { useChat } from "@/context/ChatContext";
-import { CommonButton } from "@/components/CommonButton/CommonButton";
+import { useChat } from "../../context/ChatContext";
+import { CommonButton } from "../CommonButton/CommonButton";
 
 type AppleButtonProps = {
   copy?: string;

@@ -1,10 +1,9 @@
 .phoneContainer {
-  /* Simulate an iPhone container */
-  width: 100%;
-  max-width: min(375px, 95vw);
-  height: 100%;
-  aspect-ratio: 375 / 812;
-  max-height: min(812px, 95vh);
+  /* Keep device shell dimensions stable while chat content scrolls internally */
+  width: min(375px, 95vw, calc(min(812px, 95dvh) * 375 / 812));
+  height: min(812px, 95dvh);
+  min-height: min(812px, 95dvh);
+  max-height: min(812px, 95dvh);
   background: #fefefe;
   border: 3px solid #000;
   border-radius: 25px;
@@ -14,11 +13,6 @@
   margin: .5rem;
   position: relative;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  overflow-y: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.phoneContainer::-webkit-scrollbar {
-  display: none;
+  overflow: hidden;
+  flex: 0 0 auto;
 }
